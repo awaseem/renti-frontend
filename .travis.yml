@@ -1,0 +1,15 @@
+sudo: false
+language: node_js
+node_js:
+    - "5.0.0"
+services:
+  - docker
+before_install:
+    - sleep 15
+    - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" tutum.co
+after_success:
+    - sleep 5
+    - docker build -t tutum.co/awaseem/blog.aliwaseem.com:$TRAVIS_BRANCH-$TRAVIS_NODE_VERSION-$TRAVIS_PULL_REQUEST .
+    - sleep 10
+    - docker push tutum.co/awaseem/blog.aliwaseem.com:$TRAVIS_BRANCH-$TRAVIS_NODE_VERSION-$TRAVIS_PULL_REQUEST
+    - docker logout tutum.co
