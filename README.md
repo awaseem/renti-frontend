@@ -1,30 +1,21 @@
-# Blog.aliwaseem.com
-
-[![Build Status](https://travis-ci.org/awaseem/blog-api.svg?branch=master)](https://travis-ci.org/awaseem/blog-api)
-
-A place to share my random thoughts. (Now with more redux!)
+# Renti-Frontend
 
 ## Setup
 
-To setup clone the repo:
+To setup just run the following commands, ensure that a renti-backend instance is running somewhere within your machine (the front-end need data to access via endpoints from the backend!)
+
 ```
-git clone https://github.com/awaseem/blog.aliwaseem.com
-```
-Install and build dependencies:
-```
-npm install; npm run deploy
-```
-Start the development server:
-```
+npm install
+
 npm run watch
 ```
 
-## Changing RESTful server
+## Rules to contributing
 
-You can start your own blog-api server from the following repo: https://github.com/awaseem/blog-api and change the endpoints in src/config/endpoints.js to point to the new blog-api server:
-
-```
-...
-let baseURL = "NEW_API_URL";
-...
-```
+- Use an eslint plugin for your text editor! It's there to help you fix simple mistakes and follow the syntax guidelines setup by the project
+- Use promises (no ajax! its not 2004 :p) for all requests to the server. This shouldn't be hard as all http methods (GET, POST, PUT, DELETE) are abstracted for you to use promises within util/request
+- Use const keyword for immutable values and let keyword for mutable values, NO VARS ALLOWED WITHIN SOURCE CODE!
+- Add all custom css within the styles folder
+- Every react component you create has a parent named after its folder (for example: Signin.js === components/Signin)
+- Only parent components are allowed to have state, meaning that you can only set states within parents. If you wish to add state to children, use props!
+- Have fun and be creative, don't be sacred to mess around with things!
