@@ -1,5 +1,3 @@
-import $ from "jquery";
-
 const statusMiddleware = (response) => {
     if (response.ok) {
         return response;
