@@ -37,8 +37,7 @@
         "jQuery": true,
         "$": true
     },
-    "extends": "eslint:recommended",
     "plugins": [
-        "react"
+      "react"
     ]
 }
