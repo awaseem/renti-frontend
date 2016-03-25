@@ -18,6 +18,15 @@
         ],
         "no-var": 2
     },
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "modules": true,
+            "jsx": true,
+            "experimentalObjectRestSpread": true,
+            "blockBindings": true
+        }
+    },
     "env": {
         "es6": true,
         "browser": true,
@@ -29,12 +38,6 @@
         "$": true
     },
     "extends": "eslint:recommended",
-    "ecmaFeatures": {
-        "modules": true,
-        "jsx": true,
-        "experimentalObjectRestSpread": true,
-        "blockBindings": true
-    },
     "plugins": [
         "react"
     ]
