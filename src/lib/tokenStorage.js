@@ -1,11 +1,11 @@
-export const setToken = (tokenString) => {
+export function setToken(tokenString) {
     localStorage.setItem("renti-user", tokenString);
 };
 
-export const getToken = () => {
+export function getToken() {
     return localStorage.getItem("renti-user");
 };
 
-export const deleteToken = () => {
+export function deleteToken() {
     localStorage.removeItem("renti-user");
 };

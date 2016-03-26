@@ -1,4 +1,4 @@
-const statusMiddleware = (response) => {
+function statusMiddleware(response) {
     if (response.ok) {
         return response;
     } else {
@@ -8,11 +8,11 @@ const statusMiddleware = (response) => {
     }
 };
 
-const jsonResponseMiddleware = (response) => {
+function jsonResponseMiddleware(response) {
     return response.json();
 };
 
-const get = (url, jsonData) => {
+export function get(url, jsonData) {
     let urlQuery = jsonData ? $.param(jsonData) : "";
     url = url + "?" + urlQuery;
     return fetch(url, {
@@ -26,7 +26,7 @@ const get = (url, jsonData) => {
         .then(jsonResponseMiddleware);
 };
 
-const post = (url, jsonData) => {
+export function post(url, jsonData) {
     return fetch(url, {
         method: "post",
         headers: {
@@ -39,7 +39,7 @@ const post = (url, jsonData) => {
         .then(jsonResponseMiddleware);
 };
 
-const put = (url, jsonData) => {
+export function put(url, jsonData) {
     return fetch(url, {
         method: "put",
         headers: {
@@ -52,7 +52,7 @@ const put = (url, jsonData) => {
         .then(jsonResponseMiddleware);
 };
 
-const remove = (url, jsonData) => {
+export function remove(url, jsonData) {
     return fetch(url, {
         method: "delete",
         headers: {
@@ -64,5 +64,3 @@ const remove = (url, jsonData) => {
         .then(statusMiddleware)
         .then(jsonResponseMiddleware);
 };
-
-export { get, post, put, remove };
