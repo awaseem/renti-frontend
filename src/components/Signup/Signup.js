@@ -14,6 +14,9 @@ export default React.createClass({
     onSubmit: function (e) {
         console.log("It is in onSubmit");
         e.preventDefault();
+        const dateOfBirth = new Date(this.refs.year.value.trim(),
+            this.refs.month.value.trim() - 1, // month is 0 based
+            this.refs.day.value.trim());
         createUser(this.refs.username.value.trim(),
             this.refs.password.value.trim(),
             this.refs.image.value.trim(),
@@ -21,11 +24,14 @@ export default React.createClass({
             this.refs.last_name.value.trim(),
             this.refs.address.value.trim(),
             this.refs.summary.value.trim(),
-            this.refs.date_of_birth.value.trim(),
+            dateOfBirth.getTime(),
             this.refs.emailAddress.value.trim())
         .catch( (err) => {
             return err.response.json();
-        } );
+        } )
+        .then( (value) => value ? this.setState({
+            error: value.error ? value.error : "Unknown error has occurred!"
+        }) : undefined );
     },
 
     componentDidMount: function () {
@@ -34,14 +40,16 @@ export default React.createClass({
                 on: "blur",
                 fields: {
                     username: "empty",
-                    password: "empty",
-                    image: "empty",
+                    password: ["minLength[6]", "empty"],
+                    image: ["url", "empty"],
                     first_name: "empty",
                     last_name: "empty",
                     address: "empty",
                     summary: "empty",
-                    date_of_birth: "empty",
-                    emailAddress: "empty"
+                    month: ["integer", "exactLength[2]", "empty"],
+                    day: ["integer", "exactLength[2]", "empty"],
+                    year: ["integer", "exactLength[4]", "empty"],
+                    emailAddress: ["email", "empty"]
                 },
                 inline: true,
                 onSuccess: this.onSubmit
@@ -63,13 +71,15 @@ export default React.createClass({
                     <label>Image</label>
                     <input type="text" ref="image" name="image" placeholder="Enter an image URL"></input>
                 </div>
-                <div className="field">
-                    <label>First Name</label>
-                    <input type="text" ref="first_name" name="first_name" placeholder="Enter your first name"></input>
-                </div>
-                <div className="field">
-                    <label>Last Name</label>
-                    <input type="text" ref="last_name" name="last_name" placeholder="Enter your last name"></input>
+                <div className="equal width fields">
+                    <div className="field">
+                        <label>First Name</label>
+                        <input type="text" ref="first_name" name="first_name" placeholder="Enter your first name"></input>
+                    </div>
+                    <div className="field">
+                        <label>Last Name</label>
+                        <input type="text" ref="last_name" name="last_name" placeholder="Enter your last name"></input>
+                    </div>
                 </div>
                 <div className="field">
                     <label>Address</label>
@@ -79,9 +89,17 @@ export default React.createClass({
                     <label>Summary</label>
                     <input type="text" ref="summary" name="summary" placeholder="Enter a summary about yourself"></input>
                 </div>
-                <div className="field">
-                    <label>Date of Birth</label>
-                    <input type="text" ref="date_of_birth" name="date_of_birth" placeholder="Select your date of birth"></input>
+                <div className="inline fields">
+                <label>Date of Birth</label>
+                    <div className="field">
+                        <input type="text" ref="month" name="month" placeholder="MM"></input>
+                    </div>
+                    <div className="field">
+                        <input type="text" ref="day" name="day" placeholder="DD"></input>
+                    </div>
+                    <div className="field">
+                        <input type="text" ref="year" name="year" placeholder="YYYY"></input>
+                    </div>
                 </div>
                 <div className="field">
                     <label>email address</label>
