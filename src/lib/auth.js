@@ -36,6 +36,21 @@ export function login(username, password) {
     });
 };
 
+export function createUser(username, password, image, first_name, last_name,
+    address, summary, date_of_birth, emailAddress) {
+    return post(endpoints.signup, {
+        username: username,
+        password: password,
+        image: image,
+        first_name: first_name,
+        last_name: last_name,
+        address: address,
+        summary: summary,
+        date_of_birth: date_of_birth,
+        email: emailAddress
+    });
+};
+
 export function logout() {
     // deletes user token from localstorage
     return deleteToken();

@@ -9,6 +9,7 @@ import { Router, Route, browserHistory, IndexRoute } from "react-router";
 import App from "./components/App";
 import Home from "./components/Home/Home";
 import Signin from "./components/Signin/Signin";
+import Signup from "./components/Signup/Signup";
 
 window.React = React;
 
@@ -17,6 +18,7 @@ render(
         <Route path="/" component={App}>
             <IndexRoute component={Home}/>
             <Route path="signin" component={Signin}/>
+            <Route path="signup" component={Signup}/>
         </Route>
     </Router>,
     document.getElementById("content")
