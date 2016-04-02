@@ -3,12 +3,6 @@ import { Link } from "react-router";
 
 export default React.createClass({
 
-    getInitialState: function () {
-        return {
-            showPopUp: false
-        };
-    },
-
     render: function () {
         return (
             <div className="ui card">

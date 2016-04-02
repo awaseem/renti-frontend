@@ -20,13 +20,13 @@ export default React.createClass({
                 browserHistory.push("/");
             } )
             .catch( (err) => {
-                return err.response.json();
-            } )
+                err.response.json().then( (value) => value ? this.setState({
+                    error: value.error ? value.error : "Unknown error has occurred!"
+                }) : undefined );
+            } );
             // If you make it to this then handler, we are trying to get the error response, check that the value is an error,
             // otherwise move on!
-            .then( (value) => value ? this.setState({
-                error: value.error ? value.error : "Unknown error has occurred!"
-            }) : undefined );
+
     },
 
     componentDidMount: function () {

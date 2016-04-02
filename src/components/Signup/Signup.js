@@ -42,11 +42,10 @@ export default React.createClass({
             browserHistory.push("/");
         })
         .catch( (err) => {
-            return err.response.json();
-        } )
-        .then( (value) => value ? this.setState({
-            error: value.error ? value.error : "Unknown error has occurred!"
-        }) : undefined );
+            return err.response.json().then( (value) => value ? this.setState({
+                error: value.error ? value.error : "Unknown error has occurred!"
+            }) : undefined );
+        } );
     },
 
     componentDidMount: function () {
