@@ -1,22 +1,26 @@
 import React from "react";
-import { createUser } from "../../lib/auth";
+import { createUser, login } from "../../lib/auth";
 import { setToken } from "../../lib/tokenStorage";
 import { browserHistory } from "react-router";
+import DatePicker from "react-datepicker";
+import moment from "moment";
+
+require("react-datepicker/dist/react-datepicker.css");
 
 export default React.createClass({
 
     getInitialState: function () {
         return {
+            dateOfBirth: moment(),
             error: ""
         };
     },
 
     onSubmit: function (e) {
-        console.log("It is in onSubmit");
         e.preventDefault();
-        const dateOfBirth = new Date(this.refs.year.value.trim(),
-            this.refs.month.value.trim() - 1, // month is 0 based
-            this.refs.day.value.trim());
+        this.setState({
+            error: ""
+        });
         createUser(this.refs.username.value.trim(),
             this.refs.password.value.trim(),
             this.refs.image.value.trim(),
@@ -24,8 +28,19 @@ export default React.createClass({
             this.refs.last_name.value.trim(),
             this.refs.address.value.trim(),
             this.refs.summary.value.trim(),
-            dateOfBirth.getTime(),
+            this.state.dateOfBirth.unix(),
             this.refs.emailAddress.value.trim())
+        .then( (data) =>
+            console.log(data)
+        )
+        .then( () =>
+            login(this.refs.username.value.trim(), this.refs.password.value.trim())
+        )
+        .then( (res) => {
+            setToken(res.token);
+            // redirect to home page after login
+            browserHistory.push("/");
+        })
         .catch( (err) => {
             return err.response.json();
         } )
@@ -56,6 +71,12 @@ export default React.createClass({
             });
     },
 
+    handleChange: function(date) {
+        this.setState({
+            dateOfBirth: date
+        });
+    },
+
     render: function () {
         return (
             <form id="sign-in-form" className="ui form">
@@ -81,6 +102,12 @@ export default React.createClass({
                         <input type="text" ref="last_name" name="last_name" placeholder="Enter your last name"></input>
                     </div>
                 </div>
+                <div>
+                    <DatePicker
+                        selected={this.state.dateOfBirth}
+                        showYearDropdown
+                        onChange={this.handleChange} />
+                </div>
                 <div className="field">
                     <label>Address</label>
                     <input type="text" ref="address" name="address" placeholder="Enter an address"></input>
@@ -89,20 +116,8 @@ export default React.createClass({
                     <label>Summary</label>
                     <input type="text" ref="summary" name="summary" placeholder="Enter a summary about yourself"></input>
                 </div>
-                <div className="inline fields">
-                <label>Date of Birth</label>
-                    <div className="field">
-                        <input type="text" ref="month" name="month" placeholder="MM"></input>
-                    </div>
-                    <div className="field">
-                        <input type="text" ref="day" name="day" placeholder="DD"></input>
-                    </div>
-                    <div className="field">
-                        <input type="text" ref="year" name="year" placeholder="YYYY"></input>
-                    </div>
-                </div>
                 <div className="field">
-                    <label>email address</label>
+                    <label>Email Address</label>
                     <input type="text" ref="emailAddress" name="emailAddress" placeholder="Enter your email"></input>
                 </div>
                 <button className="ui green button">Submit</button>
@@ -110,5 +125,4 @@ export default React.createClass({
             </form>
         );
     }
-
 });

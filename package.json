@@ -31,7 +31,9 @@
     "history": "~1.13.x",
     "jquery": "^2.1.4",
     "jwt-decode": "^1.4.0",
+    "moment": "^2.12.0",
     "react": "^0.14.6",
+    "react-datepicker": "^0.25.0",
     "react-dom": "^0.14.6",
     "react-router": "^2.0.1",
     "whatwg-fetch": "^0.10.1"
