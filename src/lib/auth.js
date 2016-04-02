@@ -1,7 +1,7 @@
 import jwtDecode from "jwt-decode";
 import { getToken, deleteToken } from "./tokenStorage";
 import endpoints from "../config/endpoints";
-import { post } from "../util/request";
+import { get, post } from "../util/request";
 
 export function checkAuth() {
     // return true if a user is logged in, if not returns false
@@ -55,3 +55,28 @@ export function logout() {
     // deletes user token from localstorage
     return deleteToken();
 };
+
+export function getUserInfo() {
+    return get(endpoints.user, {
+        token: getToken(),
+    });
+};
+
+// Check to see if user has a credit card!
+export function checkUserCreditCard() {
+    if (checkAuth()) {
+        getUserInfo()
+            .then((userInfo) => {
+                if (userInfo.creditCard) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            })
+            .catch((err) => {
+                return false;
+            });
+    }
+    return false;
+}
