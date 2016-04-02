@@ -4,5 +4,7 @@ export default {
 
     signin: `${baseURL}/api/user/signin`,
 
-    user: `${baseURL}/api/user/`
+    user: `${baseURL}/api/user/`,
+
+    cars: `${baseURL}/api/car/`
 };

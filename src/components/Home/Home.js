@@ -1,6 +1,7 @@
 import React from "react";
 import { getCurrentUser, logout, checkAuth, checkUserCreditCard } from "../../lib/auth";
 import { browserHistory } from "react-router";
+import CarList from "../CarList/CarList";
 
 export default React.createClass({
 
@@ -27,6 +28,7 @@ export default React.createClass({
                 {userInfo}
                 {/*you can also use checkAuth to see if anyone is logged in*/}
                 { checkAuth() ? <button onClick={this.onLogout} className="ui red button">Log out</button> : undefined }
+                <CarList/>
             </div>
         );
     }
