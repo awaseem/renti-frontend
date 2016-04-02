@@ -67,7 +67,7 @@ export function checkUserCreditCard(cb) {
     if (checkAuth()) {
         getUserInfo()
             .then((userInfo) => {
-                if (userInfo.creditCard) {
+                if (userInfo.creditCard.credit_card_number) {
                     cb(true);
                 }
                 else {
