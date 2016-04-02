@@ -1,6 +1,13 @@
 import React from "react";
+import { Link } from "react-router";
 
 export default React.createClass({
+
+    getInitialState: function () {
+        return {
+            showPopUp: false
+        };
+    },
 
     render: function () {
         return (
@@ -9,9 +16,9 @@ export default React.createClass({
                     <img src={this.props.image}/>
                 </div>
                 <div className="content">
-                    <a href={ `/car/${this.props.id}` } className="header">{this.props.make} {this.props.model} {this.props.year}</a>
+                    <Link to={`/car/${this.props.id}`} className="header">{this.props.year} {this.props.make} {this.props.model}</Link>
                     <div className="meta">
-                    <a href={ `/user/${this.props.uid}`}><span className="date">{this.props.user}</span></a>
+                        <Link to={`/user/${this.props.uid}`}><span className="date">{this.props.user}</span></Link>
                     </div>
                     <div className="description">
                     Number of seats: {this.props.numberOfSeats} <br/>
@@ -25,7 +32,7 @@ export default React.createClass({
                     </a>
                 </div>
                 <div onClick={this.props.rentHandler} className="ui bottom attached blue button">
-                        Rent
+                    Rent
                 </div>
             </div>
         );
