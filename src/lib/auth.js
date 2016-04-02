@@ -48,20 +48,19 @@ export function getUserInfo() {
 };
 
 // Check to see if user has a credit card!
-export function checkUserCreditCard() {
+export function checkUserCreditCard(cb) {
     if (checkAuth()) {
         getUserInfo()
             .then((userInfo) => {
                 if (userInfo.creditCard) {
-                    return true;
+                    cb(true);
                 }
                 else {
-                    return false;
+                    cb(false);
                 }
             })
             .catch((err) => {
-                return false;
+                cb(false);
             });
     }
-    return false;
 }

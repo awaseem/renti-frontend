@@ -1,19 +1,45 @@
 import React from "react";
 import CarItem from "./CarItem";
 import { getCars } from "../../lib/car";
+import { checkAuth, checkUserCreditCard } from "../../lib/auth";
+import ErrorPopUp from "../PopUp/PopUp";
+import { browserHistory } from "react-router";
 
 export default React.createClass({
 
     getInitialState: function () {
         return {
-            cars: []
+            cars: [],
+            showPopUp: false,
+            message: ""
         };
+    },
+
+    rentHandler: function (carId) {
+        if (!checkAuth()) {
+            return this.setState({
+                showPopUp: true,
+                message: "noAuth"
+            });
+        }
+        else {
+            checkUserCreditCard((valid) => {
+                if (valid) {
+                    return browserHistory.push(`rent/${carId}`);
+                }
+                else {
+                    return this.setState({
+                        showPopUp: true,
+                        message: "noAuth"
+                    });
+                }
+            });
+        }
     },
 
     componentDidMount: function () {
         getCars()
             .then((cars) => {
-                console.log(cars);
                 this.setState({
                     cars: cars
                 });
@@ -35,6 +61,7 @@ export default React.createClass({
                             numberOfSeats={car.number_of_seats}
                             user={car.users.username}
                             price={car.price}
+                            rentHandler={this.rentHandler.bind(this, car.license_plate)}
             />;
         });
         return (
@@ -42,6 +69,7 @@ export default React.createClass({
                 <div className="ui cards">
                     {cars}
                 </div>
+                <ErrorPopUp show={this.state.showPopUp} heading="Error" message="There seems to be an error!"/>
             </div>
         );
     }
