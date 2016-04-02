@@ -1,5 +1,5 @@
 import React from "react";
-import { getCurrentUser, logout, checkAuth } from "../../lib/auth";
+import { getCurrentUser, logout, checkAuth, checkUserCreditCard } from "../../lib/auth";
 import { browserHistory } from "react-router";
 
 export default React.createClass({
