@@ -10,6 +10,7 @@ import App from "./components/App";
 import Home from "./components/Home/Home";
 import Signin from "./components/Signin/Signin";
 import Signup from "./components/Signup/Signup";
+import CreateCreditCard from "./components/CreateCreditCard/CreateCreditCard";
 
 window.React = React;
 
@@ -19,6 +20,7 @@ render(
             <IndexRoute component={Home}/>
             <Route path="signin" component={Signin}/>
             <Route path="signup" component={Signup}/>
+            <Route path="createCreditCard" component={CreateCreditCard}/>
         </Route>
     </Router>,
     document.getElementById("content")

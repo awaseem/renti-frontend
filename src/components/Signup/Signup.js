@@ -60,9 +60,6 @@ export default React.createClass({
                     last_name: "empty",
                     address: "empty",
                     summary: "empty",
-                    month: ["integer", "exactLength[2]", "empty"],
-                    day: ["integer", "exactLength[2]", "empty"],
-                    year: ["integer", "exactLength[4]", "empty"],
                     emailAddress: ["email", "empty"]
                 },
                 inline: true,
@@ -101,7 +98,8 @@ export default React.createClass({
                         <input type="text" ref="last_name" name="last_name" placeholder="Enter your last name"></input>
                     </div>
                 </div>
-                <div>
+                <div className="field">
+                    <label>Date of Birth</label>
                     <DatePicker
                         selected={this.state.dateOfBirth}
                         showYearDropdown
