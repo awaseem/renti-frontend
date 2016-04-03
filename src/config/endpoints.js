@@ -5,5 +5,6 @@ export default {
     signin: `${baseURL}/api/user/signin`,
     signup: `${baseURL}/api/user/signup`,
     user: `${baseURL}/api/user/`,
-    cars: `${baseURL}/api/car/`
+    cars: `${baseURL}/api/car/`,
+    userFeedback: `${baseURL}/api/userfeedback/`
 };

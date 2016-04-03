@@ -25,7 +25,7 @@ export default React.createClass({
         else {
             checkUserCreditCard((valid) => {
                 if (valid) {
-                    return browserHistory.push(`rent/${carId}`);
+                    return browserHistory.push(`/rent/${carId}`);
                 }
                 else {
                     return this.setState({
