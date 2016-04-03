@@ -29,11 +29,13 @@ function checkDateValidity() {
 let carRate = 0;
 
 function getCarPrice(startDate, endDate) {
-    console.log("Start Date " + startDate.format("YYYY-MM-DD") + " end date " + endDate.format("YYYY-MM-DD"));
     const lastDate = moment(endDate);
     const duration = moment.duration(lastDate.diff(startDate, "days"), "days");
-    console.log("duration is " + duration.asDays());
-    return duration.asDays() * carRate;
+    const price = duration.asDays() * carRate;
+    if (price <= 0.0) {
+        return "N/A";
+    }
+    return price;
 }
 
 export default React.createClass({
@@ -138,7 +140,7 @@ export default React.createClass({
             startDate: date
         });
         this.setState({
-            price: getCarPrice(this.state.startDate, this.state.endDate)
+            price: getCarPrice(date, this.state.endDate)
         });
     },
 
@@ -147,7 +149,7 @@ export default React.createClass({
             endDate: date
         });
         this.setState({
-            price: getCarPrice(this.state.startDate, this.state.endDate)
+            price: getCarPrice(this.state.startDate, date)
         });
     },
 
