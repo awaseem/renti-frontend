@@ -106,13 +106,13 @@ export default React.createClass({
                         <div className="center aligned column">
                             <h1>{userData.first_name} {userData.last_name}</h1>
                             <img className="ui small centered circular image" src={userData.image}/>
-                            <h5>username: {userData.username}</h5>
-                            <h5>email: {userData.email}</h5>
+                            <h5 className="ui grey header">username: {userData.username}</h5>
+                            <h5 className="ui grey header">email: {userData.email}</h5>
                         </div>
                     </div>
                     <hr/>
                     <div className="row">
-                        <div className="centered eight wide column">
+                        <div className="center aligned column">
                             <h2>Summary</h2>
                             <p>{userData.summary}</p>
                         </div>
@@ -129,6 +129,7 @@ export default React.createClass({
                             </div>
                         </div>
                     </div>
+                    <hr/>
                     <div className="row">
                         <div className="centered eight wide column">
                             <div className="ui items">
