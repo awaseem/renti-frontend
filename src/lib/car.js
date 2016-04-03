@@ -22,3 +22,7 @@ export function addCar(userId, licensePlate, model, make, year, numberOfSeats,
 export function getCars() {
     return get(endpoints.cars);
 }
+
+export function getCar(plate) {
+    return get(endpoints.cars + plate);
+}

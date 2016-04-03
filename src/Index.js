@@ -13,6 +13,7 @@ import Signup from "./components/Signup/Signup";
 import UserPage from "./components/User/User";
 import CreateCreditCard from "./components/CreateCreditCard/CreateCreditCard";
 import AddCar from "./components/AddCar/AddCar";
+import CreateTransaction from "./components/CreateTransaction/CreateTransaction";
 
 window.React = React;
 
@@ -24,7 +25,8 @@ render(
             <Route path="signup" component={Signup}/>
             <Route path="user/:uid" component={UserPage}/>
             <Route path="createCreditCard" component={CreateCreditCard}/>
-            <Route path="addCar" component={AddCar}/>
+            <Route path="newCar" component={AddCar}/>
+            <Route path="rent/:plate" component={CreateTransaction}/>
         </Route>
     </Router>,
     document.getElementById("content")
