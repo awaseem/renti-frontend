@@ -16,7 +16,7 @@ export default React.createClass({
     submit: function (e) {
         e.preventDefault();
         const comment = this.refs.comment.value.trim();
-        this.props.handler(comment);
+        this.props.handler(comment, this.refs.comment);
     },
 
     render: function () {

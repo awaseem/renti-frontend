@@ -15,17 +15,18 @@ export default React.createClass({
             showPopUp: false,
             userData: {},
             userComments: [],
-            error: ""
+            error: false
         };
     },
 
-    addComment: function (comment) {
+    addComment: function (comment, ref) {
         addUserComment(comment, this.props.params.uid)
             .then((comment) => {
                 comment.data.userCreator = getCurrentUser();
                 this.setState({
                     userComments: this.state.userComments.concat(comment.data)
                 });
+                ref.value = "";
             })
             .catch((err) => {
                 console.error(err);
@@ -63,14 +64,16 @@ export default React.createClass({
                 });
             })
             .catch((err) => {
-                console.log(err);
-                err.response.json().then((err) => this.setState({
-                    error: err.message
-                }));
+                this.setState({
+                    error: true
+                });
             });
     },
 
     render: function () {
+        if (this.state.error) {
+            return ( <div>No user found</div> );
+        }
         const userData = this.state.userData;
         let userCars;
         let userComments;
