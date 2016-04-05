@@ -10,3 +10,12 @@ export function addUserComment(comment, user) {
         user_has: user
     });
 }
+
+export function addCarComment(comment, carPlate) {
+    return post(endpoints.carFeedback, {
+        token: getToken(),
+        rating: 3,
+        comment: comment,
+        car_has: carPlate
+    });
+}

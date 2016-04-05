@@ -11,6 +11,7 @@ import Home from "./components/Home/Home";
 import Signin from "./components/Signin/Signin";
 import Signup from "./components/Signup/Signup";
 import UserPage from "./components/User/User";
+import CarPage from "./components/Car/Car";
 import CreateCreditCard from "./components/CreateCreditCard/CreateCreditCard";
 import AddCar from "./components/AddCar/AddCar";
 import CreateTransaction from "./components/CreateTransaction/CreateTransaction";
@@ -26,6 +27,7 @@ render(
             <Route path="signup" component={Signup}/>
             <Route path="user/admin" component={UserEdit}/>
             <Route path="user/:uid" component={UserPage}/>
+            <Route path="car/:plate" component={CarPage}/>
             <Route path="createCreditCard" component={CreateCreditCard}/>
             <Route path="newCar" component={AddCar}/>
             <Route path="rent/:plate" component={CreateTransaction}/>

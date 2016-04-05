@@ -1,30 +1,30 @@
 import React from "react";
-import { getUserById } from "../../lib/user";
+import { Link } from "react-router";
+import { getCar } from "../../lib/car";
 import { checkAuth, checkUserCreditCard, getCurrentUser } from "../../lib/auth";
 import { browserHistory } from "react-router";
-import { addUserComment } from "../../lib/feedback";
+import { addCarComment } from "../../lib/feedback";
 import FeedbackItem from "../Feedback/FeedbackItem";
 import FeedbackForm from "../Feedback/FeedbackForm";
 import ErrorPopUp from "../PopUp/PopUp";
-import CarItem from "../CarList/CarItem";
 
 export default React.createClass({
 
     getInitialState: function () {
         return {
             showPopUp: false,
-            userData: {},
-            userComments: [],
+            carData: {},
+            carComments: [],
             error: false
         };
     },
 
     addComment: function (comment, ref) {
-        addUserComment(comment, this.props.params.uid)
+        addCarComment(comment, this.props.params.plate)
             .then((comment) => {
                 comment.data.userCreator = getCurrentUser();
                 this.setState({
-                    userComments: this.state.userComments.concat(comment.data)
+                    carComments: this.state.carComments.concat(comment.data)
                 });
                 ref.value = "";
             })
@@ -33,22 +33,22 @@ export default React.createClass({
             });
     },
 
-    rentHandler: function (carId) {
+    rentHandler: function () {
         if (!checkAuth()) {
             return this.setState({
                 showPopUp: true,
-                message: "noAuth"
+                message: "You need to login in order to rent this car!"
             });
         }
         else {
             checkUserCreditCard((valid) => {
                 if (valid) {
-                    return browserHistory.push(`/rent/${carId}`);
+                    return browserHistory.push(`/rent/${this.props.params.plate}`);
                 }
                 else {
                     return this.setState({
                         showPopUp: true,
-                        message: "noAuth"
+                        message: "You need a valid credit card in order to rent this car!"
                     });
                 }
             });
@@ -56,11 +56,11 @@ export default React.createClass({
     },
 
     componentDidMount: function () {
-        getUserById(this.props.params.uid)
+        getCar(this.props.params.plate)
             .then((data) => {
                 this.setState({
-                    userData: data,
-                    userComments: data.userFeedback
+                    carData: data,
+                    carComments: data.carFeedback
                 });
             })
             .catch((err) => {
@@ -72,28 +72,12 @@ export default React.createClass({
 
     render: function () {
         if (this.state.error) {
-            return ( <div>No user found</div> );
+            return ( <div>No car found</div> );
         }
-        const userData = this.state.userData;
-        let userCars;
-        let userComments;
-        if (userData.cars) {
-            userCars = userData.cars.map((car) => {
-                return <CarItem key={Math.random()} colour={car.colour}
-                                    id={car.license_plate}
-                                    uid={car.user_id}
-                                    image={car.image}
-                                    make={car.make}
-                                    model={car.model}
-                                    year={car.year}
-                                    numberOfSeats={car.number_of_seats}
-                                    price={car.price}
-                                    rentHandler={this.rentHandler.bind(this, car.license_plate)}
-                />;
-            });
-        }
-        if (this.state.userComments) {
-            userComments = this.state.userComments.map((feedback) => {
+        const carData = this.state.carData;
+        let carComments;
+        if (this.state.carComments) {
+            carComments = this.state.carComments.map((feedback) => {
                 return <FeedbackItem key={Math.random()} uid={feedback.userCreator.uid}
                             comment={feedback.comment} image={feedback.userCreator.image}
                             username={feedback.userCreator.username}/>;
@@ -104,36 +88,27 @@ export default React.createClass({
                 <div className="ui grid">
                     <div className="row">
                         <div className="center aligned column">
-                            <h1>{userData.first_name} {userData.last_name}</h1>
-                            <img className="ui small centered circular image" src={userData.image}/>
-                            <h5 className="ui grey header">username: {userData.username}</h5>
-                            <h5 className="ui grey header">email: {userData.email}</h5>
+                            <h1>{carData.year} {carData.make} {carData.model}</h1>
+                            <img className="ui large rounded centered image" src={carData.image}/>
+                            <h5 className="ui grey header">price: ${carData.price}</h5>
+                            <h5 className="ui grey header">belongs to: <Link to={`/user/${carData.user_id}`}><span>{carData.users ? carData.users.username : undefined}</span></Link></h5>
+                            <h5 className="ui grey header">number of seats: {carData.number_of_seats}</h5>
+                            <h5 className="ui grey header">colour: {carData.colour}</h5>
+                            <button className="ui medium blue button" onClick={this.rentHandler}>Rent</button>
                         </div>
                     </div>
                     <hr/>
                     <div className="row">
                         <div className="center aligned column">
                             <h2>Summary</h2>
-                            <p>{userData.summary}</p>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="center aligned column">
-                            <h2>Cars</h2>
-                        </div>
-                    </div>
-                    <div className="one column row">
-                        <div className="centered column">
-                            <div className="ui centered cards">
-                                {userCars}
-                            </div>
+                            <p>{carData.summary}</p>
                         </div>
                     </div>
                     <hr/>
                     <div className="row">
                         <div className="centered eight wide column">
                             <div className="ui items">
-                                {userComments}
+                                {carComments}
                             </div>
                         </div>
                     </div>
