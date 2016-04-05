@@ -1,6 +1,7 @@
 import React from "react";
 import DatePicker from "react-datepicker";
 import moment from "moment";
+import CarItem from "../CarList/CarItem";
 import { getCurrentUser } from "../../lib/auth";
 import { createTransaction, getTransactions } from "../../lib/transaction";
 import { getCar } from "../../lib/car";
@@ -46,7 +47,8 @@ export default React.createClass({
             currentUser: "",
             price: 0,
             exclusionDates: [],
-            error: ""
+            error: "",
+            carData: ""
         };
     },
 
@@ -115,7 +117,8 @@ export default React.createClass({
         .then( (car) => {
             carRate = car.price;
             this.setState({
-                price: getCarPrice(this.state.startDate, this.state.endDate)
+                price: getCarPrice(this.state.startDate, this.state.endDate),
+                carData: car
             });
         })
         .catch( (err) => {
@@ -159,44 +162,67 @@ export default React.createClass({
                 <div>No car found</div>
             );
         }
+        const car = this.state.carData;
+        let carItem;
+        if (car) {
+            carItem =  <CarItem colour={car.colour}
+                                id={car.license_plate}
+                                uid={car.user_id}
+                                image={car.image}
+                                make={car.make}
+                                model={car.model}
+                                year={car.year}
+                                numberOfSeats={car.number_of_seats}
+                                user={car.users.username}
+                                price={car.price} />;
+        }
         return (
-            <form id="create_transaction-form" className="ui form">
-                <div className="two fields">
-                    <div className="field">
-                        <label>Start Date</label>
-                        <DatePicker
-                            selected={this.state.startDate}
-                            startDate={this.state.startDate}
-                            endDate={this.state.endDate}
-                            minDate={moment()}
-                            excludeDates={this.state.exclusionDates}
-                            onChange={this.handleChangeStart} />
+            <div>
+                <br/>
+                <div className="ui grid">
+                    <div className="centered row">
+                        {carItem}
                     </div>
+                    <div className="centered row">
+                        <div className="ui statistic">
+                            <div className="value">
+                                ${this.state.price}
+                            </div>
+                            <div className="label">Price</div>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <form id="create_transaction-form" className="ui form">
+                    <div className="two fields">
+                        <div className="field">
+                            <label>Start Date</label>
+                            <DatePicker
+                                selected={this.state.startDate}
+                                startDate={this.state.startDate}
+                                endDate={this.state.endDate}
+                                minDate={moment()}
+                                excludeDates={this.state.exclusionDates}
+                                onChange={this.handleChangeStart} />
+                        </div>
 
-                    <div className="field">
-                        <label>End Date</label>
-                        <DatePicker
-                            selected={this.state.endDate}
-                            startDate={this.state.startDate}
-                            endDate={this.state.endDate}
-                            minDate={moment(this.state.startDate).add(1, "days")}
-                            excludeDates={this.state.exclusionDates}
-                            onChange={this.handleChangeEnd} />
+                        <div className="field">
+                            <label>End Date</label>
+                            <DatePicker
+                                selected={this.state.endDate}
+                                startDate={this.state.startDate}
+                                endDate={this.state.endDate}
+                                minDate={moment(this.state.startDate).add(1, "days")}
+                                excludeDates={this.state.exclusionDates}
+                                onChange={this.handleChangeEnd} />
+                        </div>
                     </div>
-                </div>
-                <div className="ui statistic">
-                    <div className="value">
-                    ${this.state.price}
+                    <div>
+                        <button className="ui green button">Rent</button>
                     </div>
-                    <div className="label">
-                    Price
-                    </div>
-                </div>
-                <div>
-                    <button className="ui green button">Rent</button>
-                </div>
-                <div style={{ display: this.state.error ? "block" : "none"}} className="ui error message">{this.state.error}</div>
-            </form>
+                    <div style={{ display: this.state.error ? "block" : "none"}} className="ui error message">{this.state.error}</div>
+                </form>
+            </div>
         );
     }
 });

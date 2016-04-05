@@ -4,6 +4,10 @@ import { Link } from "react-router";
 export default React.createClass({
 
     render: function () {
+        let buttonType = undefined;
+        if (this.props.rentHandler) {
+            buttonType = <div onClick={this.props.rentHandler} className="ui bottom attached blue button">Rent</div>;
+        }
         return (
             <div className="ui card">
                 <div className="image">
@@ -12,7 +16,7 @@ export default React.createClass({
                 <div className="content">
                     <Link to={`/car/${this.props.id}`} className="header">{this.props.year} {this.props.make} {this.props.model}</Link>
                     <div className="meta">
-                        <Link to={`/user/${this.props.uid}`}><span className="date">{this.props.user}</span></Link>
+                        <Link to={`/user/${this.props.uid}`}>{this.props.user}</Link>
                     </div>
                     <div className="description">
                     Number of seats: {this.props.numberOfSeats} <br/>
@@ -20,14 +24,12 @@ export default React.createClass({
                     </div>
                 </div>
                 <div className="extra content">
-                    <a>
-                    <i className="money icon"></i>
-                    ${this.props.price}/day
-                    </a>
+                    <span>
+                        <i className="money icon"></i>
+                        ${this.props.price}/day
+                    </span>
                 </div>
-                <div onClick={this.props.rentHandler} className="ui bottom attached blue button">
-                    Rent
-                </div>
+                {buttonType}
             </div>
         );
     }
