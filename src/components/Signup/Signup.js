@@ -105,17 +105,19 @@ export default React.createClass({
                         showYearDropdown
                         onChange={this.handleChange} />
                 </div>
-                <div className="field">
-                    <label>Address</label>
-                    <input type="text" ref="address" name="address" placeholder="Enter an address"></input>
+                <div className="equal width fields">
+                    <div className="field">
+                        <label>Address</label>
+                        <input type="text" ref="address" name="address" placeholder="Enter an address"></input>
+                    </div>
+                    <div className="field">
+                        <label>Email Address</label>
+                        <input type="text" ref="emailAddress" name="emailAddress" placeholder="Enter your email"></input>
+                    </div>
                 </div>
                 <div className="field">
                     <label>Summary</label>
-                    <input type="text" ref="summary" name="summary" placeholder="Enter a summary about yourself"></input>
-                </div>
-                <div className="field">
-                    <label>Email Address</label>
-                    <input type="text" ref="emailAddress" name="emailAddress" placeholder="Enter your email"></input>
+                    <textarea rows="2" ref="summary" name="summary" placeholder="Enter a summary about yourself"></textarea>
                 </div>
                 <button className="ui green button">Submit</button>
                 <div style={{ display: this.state.error ? "block" : "none"}} className="ui error message">{this.state.error}</div>
