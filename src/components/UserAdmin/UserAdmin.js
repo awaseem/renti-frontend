@@ -1,6 +1,7 @@
 import React from "react";
 import { checkAuth, getCurrentUser } from "../../lib/auth";
 import { getUserById, updateUser } from "../../lib/user";
+import { getTransactionsForUser } from "../../lib/transaction";
 import UserEdit from "./UserEdit/UserEdit";
 import TransactionEdit from "./TransactionEdit/TransactionEdit";
 
@@ -9,21 +10,16 @@ export default React.createClass({
     getInitialState: function () {
         return {
             userData: "",
+            userTransactions: "",
             userFormUpdated: false,
             formError: ""
         };
     },
 
     componentDidMount: function () {
-        const userData = getCurrentUser();
-        if (userData === undefined) {
-            this.setState({
-                error: "noCurrentUser"
-            });
-            return;
-        }
+        const tokenData = getCurrentUser();
 
-        getUserById(userData.uid)
+        getUserById(tokenData.uid)
         .then( (data) => {
             console.log(data);
             this.setState({
@@ -31,12 +27,25 @@ export default React.createClass({
             });
         })
         .catch( (err) => {
-            console.error(err);
+            console.log(err);
             this.setState({
                 error: "noCurrentUser"
             });
         });
 
+        getTransactionsForUser(tokenData.uid)
+        .then( (userTransactions) => {
+            console.log(userTransactions);
+            this.setState({
+                userTransactions: userTransactions
+            });
+        })
+        .catch( (err) => {
+            console.log(err);
+            this.setState({
+                error: "noCurrentUser"
+            });
+        });
     },
 
     userFormHandler: function (address, email, image, summary) {
@@ -51,7 +60,6 @@ export default React.createClass({
             });
         })
         .catch( (err) => {
-            console.error(err);
             this.setState({
                 formError: "Error: Unable to update user"
             });
@@ -59,9 +67,7 @@ export default React.createClass({
     },
 
     render: function () {
-        const userData = this.state.userData;
-        if (this.state.error === "noCurrentUser") {
-            console.log("displaying popup");
+        if (!checkAuth() || this.state.error === "noCurrentUser") {
             return (
                 <div>
                     <h1>You must be logged in to view this page.</h1>
@@ -75,7 +81,9 @@ export default React.createClass({
                         error={this.state.formError}
                         handleFormSubmit={this.userFormHandler}/>
                     <div className="ui divider"></div>
-                    <TransactionEdit/>
+                    <TransactionEdit
+                        userData={this.state.userData}
+                        userTransactions={this.state.userTransactions}/>
                 </div>
             );
         }

@@ -16,3 +16,7 @@ export function createTransaction(userId, dateIn, dateOut, licensePlate, price) 
 export function getTransactions(plate) {
     return get(endpoints.transactions + plate);
 }
+
+export function getTransactionsForUser(uid) {
+    return get(`${endpoints.transactions}user/${uid}`);
+}
