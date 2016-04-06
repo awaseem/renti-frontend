@@ -1,7 +1,7 @@
 import React from "react";
 import { checkAuth, getCurrentUser } from "../../lib/auth";
 import { getUserById, updateUser } from "../../lib/user";
-import { getTransactionsForUser } from "../../lib/transaction";
+import { getTransactionsForUser, approveTransaction} from "../../lib/transaction";
 import UserEdit from "./UserEdit/UserEdit";
 import TransactionEdit from "./TransactionEdit/TransactionEdit";
 
@@ -21,7 +21,6 @@ export default React.createClass({
 
         getUserById(tokenData.uid)
         .then( (data) => {
-            console.log(data);
             this.setState({
                 userData: data
             });
@@ -35,7 +34,6 @@ export default React.createClass({
 
         getTransactionsForUser(tokenData.uid)
         .then( (userTransactions) => {
-            console.log(userTransactions);
             this.setState({
                 userTransactions: userTransactions
             });
@@ -66,6 +64,21 @@ export default React.createClass({
         });
     },
 
+    transactionApprovalHandler: function (tid) {
+        approveTransaction(tid);
+        let userData = this.state.userData;
+        userData.cars.forEach((car) => {
+            car.transactions.forEach( (transaction) => {
+                if (transaction.tid == tid) {
+                    transaction.pending = 0;
+                }
+            });
+        });
+        this.setState({
+            userData: userData
+        });
+    },
+
     render: function () {
         if (!checkAuth() || this.state.error === "noCurrentUser") {
             return (
@@ -83,7 +96,8 @@ export default React.createClass({
                     <div className="ui divider"></div>
                     <TransactionEdit
                         userData={this.state.userData}
-                        userTransactions={this.state.userTransactions}/>
+                        userTransactions={this.state.userTransactions}
+                        transactionApprovalHandler={this.transactionApprovalHandler}/>
                 </div>
             );
         }

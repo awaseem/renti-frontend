@@ -4,6 +4,10 @@ import moment from "moment";
 
 export default React.createClass({
 
+    handleApproveClick: function() {
+        this.props.transactionApprovalHandler(this.props.tid);
+    },
+
     render: function () {
         let transactionState = "";
         if (this.props.approved) {
@@ -14,7 +18,7 @@ export default React.createClass({
         } else {
             if (this.props.userCanApprove) {
                 transactionState =
-                    <div className="ui basic green button">Approve</div>;
+                    <div onClick={this.handleApproveClick} className="ui basic green button">Approve</div>;
             } else {
                 transactionState =
                     <div>
@@ -29,8 +33,13 @@ export default React.createClass({
                 </div>
                 <div className="content">
                     <Link to={`/car/${this.props.license}`} className="header">{this.props.year} {this.props.make} {this.props.model}</Link>
+                    <div className="ui right floated statistic">
+                        <div className="value">
+                            ${this.props.price}
+                        </div>
+                    </div>
                     <div className="meta">
-                        <Link to={`/user/${this.props.uid}`}><span className="date">{this.props.carOwner}</span></Link>
+                        Renter: <Link to={`/user/${this.props.renter.uid}`}><span className="date">{this.props.renter.username}</span></Link>
                     </div>
                     <div className="description">
                         Date out: {moment.unix(this.props.dateIn).format("YYYY-MM-DD")} <br/>

@@ -13,8 +13,6 @@ export default React.createClass({
         }
 
         this.props.userData.cars.forEach( (car) => {
-            console.log("For each of the cars");
-            console.log(car);
             if (car.transactions.length == 0) {
                 return;
             }
@@ -22,6 +20,7 @@ export default React.createClass({
                 car.transactions.map((transaction) => {
                     return <TransactionItem
                         key={transaction.tid}
+                        tid={transaction.tid}
                         approved={!transaction.pending}
                         userCanApprove
                         image={car.image}
@@ -30,9 +29,11 @@ export default React.createClass({
                         make={car.make}
                         model={car.model}
                         uid={car.user_id}
-                        carOwner={this.props.userData.username}
+                        renter={transaction.user_renter}
                         dateIn={transaction.date_in}
                         dateOut={transaction.date_out}
+                        price={transaction.price}
+                        transactionApprovalHandler={this.props.transactionApprovalHandler}
                         />;
                 }));
         });
@@ -59,6 +60,7 @@ export default React.createClass({
             userTransactions = this.props.userTransactions.map((transaction) => {
                 return <TransactionItem
                     key={transaction.tid}
+                    tid={transaction.tid}
                     approved={!transaction.pending}
                     image={transaction.car.image}
                     license={transaction.car_id}
@@ -66,9 +68,11 @@ export default React.createClass({
                     make={transaction.car.make}
                     model={transaction.car.model}
                     uid={transaction.car.user_id}
-                    carOwner={transaction.car.users.username}
+                    renter={this.props.userData}
                     dateIn={transaction.date_in}
                     dateOut={transaction.date_out}
+                    price={transaction.price}
+                    transactionApprovalHandler={this.props.transactionApprovalHandler}
                     />;
             });
         }

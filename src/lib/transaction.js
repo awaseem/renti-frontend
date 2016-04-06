@@ -20,3 +20,10 @@ export function getTransactions(plate) {
 export function getTransactionsForUser(uid) {
     return get(`${endpoints.transactions}user/${uid}`);
 }
+
+export function approveTransaction(tid) {
+    return post(`${endpoints.transactions}approve`, {
+        token: getToken(),
+        tid: tid
+    });
+}
