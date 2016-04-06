@@ -15,7 +15,7 @@ import CarPage from "./components/Car/Car";
 import CreateCreditCard from "./components/CreateCreditCard/CreateCreditCard";
 import AddCar from "./components/AddCar/AddCar";
 import CreateTransaction from "./components/CreateTransaction/CreateTransaction";
-import UserEdit from "./components/UserEdit/UserEdit";
+import UserAdmin from "./components/UserAdmin/UserAdmin";
 
 window.React = React;
 
@@ -25,7 +25,7 @@ render(
             <IndexRoute component={Home}/>
             <Route path="signin" component={Signin}/>
             <Route path="signup" component={Signup}/>
-            <Route path="user/admin" component={UserEdit}/>
+            <Route path="user/admin" component={UserAdmin}/>
             <Route path="user/:uid" component={UserPage}/>
             <Route path="car/:plate" component={CarPage}/>
             <Route path="createCreditCard" component={CreateCreditCard}/>
