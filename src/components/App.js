@@ -7,7 +7,9 @@ export default React.createClass({
         return (
             <div>
                 <Menu/>
-                {this.props.children}
+                <div className="ui container">
+                    {this.props.children}
+                </div>
             </div>
         );
     }
