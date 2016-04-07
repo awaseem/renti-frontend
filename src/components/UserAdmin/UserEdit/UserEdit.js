@@ -59,11 +59,13 @@ export default React.createClass({
                             <p>{userData.summary}</p>
                         </div>
                     </div>
+                    <div className="centered row">
+                        <div className="ui divider"></div>
+                        <div className="ui green button" onClick={this.props.showEditUserHandler}>Edit User</div>
+                        {creditCardButton}
+                        <div className="ui green button" onClick={this.props.addCarHandler}>Add Car</div>
+                    </div>
                 </div>
-                <div className="ui divider"></div>
-                <div className="ui green button" onClick={this.props.showEditUserHandler}>Edit User</div>
-                {creditCardButton}
-                <div className="ui green button" onClick={this.props.addCarHandler}>Add Car</div>
                 <div className="ui hidden divider"></div>
 
                 <form id="user-edit-form" className="ui form" style={{ display: this.props.formOpenState === "editUserForm" ? "block" : "none"}} >
