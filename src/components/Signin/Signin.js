@@ -44,18 +44,32 @@ export default React.createClass({
 
     render: function () {
         return (
-            <form id="sign-in-form" className="ui form">
-                <div className="field">
-                    <label>Username</label>
-                    <input type="text" ref="username" name="username" placeholder="Enter a username"></input>
+            <div className="ui centered grid">
+                <div className="row">
+                    <div className="eight wide column">
+                        <h1 className="ui center aligned header">Renti</h1>
+                        <h3 className="ui center aligned header"><i>Rent, Share, Ride</i></h3>
+                    </div>
                 </div>
-                <div className="field">
-                    <label>Password</label>
-                    <input type="password" ref="password" name="password" placeholder="Enter a Password"></input>
+                <div className="row">
+                    <div className="eight wide column">
+                        <div className="ui segment">
+                            <form id="sign-in-form" className="ui form">
+                                <div className="field">
+                                    <label>Username</label>
+                                    <input type="text" ref="username" name="username" placeholder="Enter a username"></input>
+                                </div>
+                                <div className="field">
+                                    <label>Password</label>
+                                    <input type="password" ref="password" name="password" placeholder="Enter a Password"></input>
+                                </div>
+                                <button className="ui green button">Submit</button>
+                                <div style={{ display: this.state.error ? "block" : "none"}} className="ui error message">{this.state.error}</div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <button className="ui green button">Submit</button>
-                <div style={{ display: this.state.error ? "block" : "none"}} className="ui error message">{this.state.error}</div>
-            </form>
+            </div>
         );
     }
 
