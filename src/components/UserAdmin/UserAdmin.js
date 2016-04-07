@@ -2,7 +2,7 @@ import React from "react";
 import { checkAuth, getCurrentUser } from "../../lib/auth";
 import { getUserById, updateUser } from "../../lib/user";
 import { getTransactionsForUser, approveTransaction} from "../../lib/transaction";
-import { editCar } from "../../lib/car";
+import { editCar, deleteCar } from "../../lib/car";
 import UserEdit from "./UserEdit/UserEdit";
 import CarItem from "../CarList/CarItem";
 import TransactionEdit from "./TransactionEdit/TransactionEdit";
@@ -90,6 +90,23 @@ export default React.createClass({
             });
     },
 
+    carDeleteHandler: function (carId) {
+        deleteCar(carId)
+            .then(() => {
+                let userData = this.state.userData;
+                let transactions = this.state.userTransactions;
+                userData.cars = userData.cars.filter((car) => car.license_plate !== carId);
+                transactions= transactions.filter((tran) => tran.car_id !== carId);
+                this.setState({
+                    userTransactions: transactions,
+                    userData: userData
+                });
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    },
+
     transactionApprovalHandler: function (tid) {
         approveTransaction(tid);
         let userData = this.state.userData;
@@ -106,6 +123,8 @@ export default React.createClass({
     },
 
     render: function () {
+        console.log("transactions", this.state.userTransactions);
+        console.log("userdata", this.state.userData);
         const { cars } = this.state.userData;
         if (!checkAuth() || this.state.error === "noCurrentUser") {
             return (
@@ -114,7 +133,7 @@ export default React.createClass({
                 </div>
             );
         } else {
-            let carItems;
+            let carItems = [];
             if (cars) {
                 carItems = cars.map((car) => {
                     return <div key={car.license_plate} className="column"><CarItem colour={car.colour}
@@ -128,6 +147,7 @@ export default React.createClass({
                             price={car.price}
                             carData={car}
                             handleEdit={this.carEditFormHandler}
+                            handleDelete={this.carDeleteHandler}
                     /></div>;
                 });
             }
@@ -140,7 +160,19 @@ export default React.createClass({
                     <h2>Edit Cars</h2>
                     <div className="ui divider"></div>
                     <div className="ui three column centered grid">
-                        {carItems}
+                        {carItems.length !== 0 ? carItems :
+                            <div>
+                                <div className="ui hidden divider"></div>
+                                <div className="ui message">
+                                    <div className="header">
+                                        No transactions!
+                                    </div>
+                                    <p>You don't have any transactions. Rent a vehicle to see it here.</p>
+                                </div>
+                                <div className="ui hidden divider"></div>
+                                <div className="ui hidden divider"></div>
+                            </div>
+                        }
                     </div>
                     <div className="ui divider"></div>
                     <TransactionEdit

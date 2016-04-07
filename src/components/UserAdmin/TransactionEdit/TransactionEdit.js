@@ -50,11 +50,13 @@ export default React.createClass({
         let userTransactions = [];
         if (this.props.userTransactions.length === 0) {
             userTransactions =
-                <div className="ui message">
-                    <div className="header">
-                    No transactions!
+                <div>
+                    <div className="ui message">
+                        <div className="header">
+                        No transactions!
+                        </div>
+                        <p>You don't have any transactions. Rent a vehicle to see it here.</p>
                     </div>
-                    <p>You don't have any transactions. Rent a vehicle to see it here.</p>
                 </div>;
         } else {
             userTransactions = this.props.userTransactions.map((transaction) => {

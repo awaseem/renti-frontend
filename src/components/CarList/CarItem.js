@@ -17,8 +17,9 @@ export default React.createClass({
         });
     },
 
-    onDelete: function () {
-        this.props.handleDelete(this.carData.license_plate);
+    onDelete: function (e) {
+        e.preventDefault();
+        this.props.handleDelete(this.props.id);
     },
 
     componentDidMount: function () {
@@ -86,6 +87,7 @@ export default React.createClass({
                 </div>
                 <input className="ui green button" type="submit" name="edit"/>
                 <button className="ui blue button" onClick={ (e) => { e.preventDefault(); this.setState({ edit: !this.state.edit}); } }>Done</button>
+                <button className="ui red button" onClick={this.onDelete}>Delete</button>
             </form>;
         }
         if (!this.state.edit && this.props.carData) {

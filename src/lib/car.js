@@ -1,5 +1,5 @@
 import endpoints from "../config/endpoints";
-import { get, post, put } from "../util/request";
+import { get, post, put, remove } from "../util/request";
 import { getToken } from "./tokenStorage";
 
 export function addCar(userId, licensePlate, model, make, year, numberOfSeats,
@@ -39,5 +39,12 @@ export function editCar(plate, model, make, year, numberOfSeats,
         colour: colour,
         image: image,
         summary: summary
+    });
+}
+
+export function deleteCar(plate) {
+    return remove(endpoints.cars, {
+        token: getToken(),
+        license_plate: plate
     });
 }
