@@ -65,6 +65,7 @@ export default React.createClass({
             })
             .catch((err) => {
                 console.error(err);
+                sw("Sorry :(", "Unkown error has occured!", "error");
             });
     },
 

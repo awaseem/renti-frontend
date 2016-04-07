@@ -28,7 +28,7 @@ export default React.createClass({
                 ref.value = "";
             })
             .catch((err) => {
-                console.error(err);
+                sw("Sorry :(", "Unkown error has occured!", "error");
             });
     },
 
