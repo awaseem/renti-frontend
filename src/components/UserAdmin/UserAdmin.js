@@ -1,8 +1,10 @@
 import React from "react";
-import { checkAuth, getCurrentUser } from "../../lib/auth";
+import { checkAuth, getCurrentUser, checkUserCreditCard } from "../../lib/auth";
 import { getUserById, updateUser } from "../../lib/user";
 import { getTransactionsForUser, approveTransaction} from "../../lib/transaction";
 import { editCar, deleteCar } from "../../lib/car";
+import { createCreditCard, deleteCreditCard } from "../../lib/creditCard";
+import { browserHistory } from "react-router";
 import UserEdit from "./UserEdit/UserEdit";
 import CarItem from "../CarList/CarItem";
 import TransactionEdit from "./TransactionEdit/TransactionEdit";
@@ -14,6 +16,8 @@ export default React.createClass({
             userData: "",
             userTransactions: "",
             userFormUpdated: false,
+            hasCreditCard: false,
+            formOpenState: "",
             formError: ""
         };
     },
@@ -31,6 +35,12 @@ export default React.createClass({
             console.error(err);
             this.setState({
                 error: "noCurrentUser"
+            });
+        });
+
+        checkUserCreditCard((hasCard) => {
+            this.setState({
+                hasCreditCard: hasCard
             });
         });
 
@@ -55,7 +65,14 @@ export default React.createClass({
         });
         updateUser(this.state.userData.uid, address, email, image, summary)
         .then( (response) => {
+            let userData = this.state.userData;
+            userData.address = address;
+            userData.email = email;
+            userData.image = image;
+            userData.summary = summary;
             this.setState({
+                userData: userData,
+                formOpenState: "",
                 userFormUpdated: true
             });
         })
@@ -63,6 +80,38 @@ export default React.createClass({
             this.setState({
                 formError: "Error: Unable to update user"
             });
+        });
+    },
+
+    showEditUserHandler: function() {
+        this.setState({
+            userFormUpdated: false,
+            formOpenState: "editUserForm"
+        });
+    },
+
+    replaceCreditCardHandler: function() {
+        deleteCreditCard()
+        .then(() => {
+            browserHistory.push("/CreateCreditCard");
+        })
+        .catch( (err) => {
+            console.error(err);
+        });
+    },
+
+    addCreditCardHandler: function() {
+        browserHistory.push("/CreateCreditCard");
+    },
+
+    addCarHandler: function() {
+        browserHistory.push("/newCar");
+    },
+
+    hideUserEditHandler: function() {
+        this.setState({
+            formError: "",
+            formOpenState: ""
         });
     },
 
@@ -154,7 +203,14 @@ export default React.createClass({
                     <UserEdit success={this.state.userFormUpdated}
                         userData={this.state.userData}
                         error={this.state.formError}
-                        handleFormSubmit={this.userFormHandler}/>
+                        handleFormSubmit={this.userFormHandler}
+                        hasCreditCard={this.state.hasCreditCard}
+                        showEditUserHandler={this.showEditUserHandler}
+                        replaceCreditCardHandler={this.replaceCreditCardHandler}
+                        addCreditCardHandler={this.addCreditCardHandler}
+                        addCarHandler={this.addCarHandler}
+                        hideUserEditHandler={this.hideUserEditHandler}
+                        formOpenState={this.state.formOpenState}/>
                     <h2>Edit Cars</h2>
                     <div className="ui divider"></div>
                     <div className="ui three column centered grid">

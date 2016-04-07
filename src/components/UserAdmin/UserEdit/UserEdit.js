@@ -1,5 +1,6 @@
 import React from "react";
-
+import CreateCreditCard from "../../CreateCreditCard/CreateCreditCard";
+import AddCar from "../../AddCar/AddCar";
 export default React.createClass({
 
     componentDidMount: function () {
@@ -37,6 +38,9 @@ export default React.createClass({
 
     render: function () {
         const userData = this.props.userData;
+        const creditCardButton = this.props.hasCreditCard ?
+            <div className="ui green button" onClick={this.props.replaceCreditCardHandler}>Replace Credit Card</div>
+            : <div className="ui green button" onClick={this.props.addCreditCardHandler}>Add Credit Card</div>;
         return (
             <div>
                 <div className="ui grid">
@@ -44,12 +48,25 @@ export default React.createClass({
                         <div className="center aligned column">
                             <h1>{userData.first_name} {userData.last_name}</h1>
                             <img className="ui small centered circular image" src={userData.image}/>
-                            <h5>username: {userData.username}</h5>
+                            <h5>Username: {userData.username}</h5>
+                            <h5>Address: {userData.address}</h5>
+                            <h5>Email: {userData.email}</h5>
                         </div>
                     </div>
-                    <div className="ui divider"></div>
+                    <div className="row">
+                        <div className="center aligned column">
+                            <h2>Summary</h2>
+                            <p>{userData.summary}</p>
+                        </div>
+                    </div>
                 </div>
-                <form id="user-edit-form" className="ui form">
+                <div className="ui divider"></div>
+                <div className="ui green button" onClick={this.props.showEditUserHandler}>Edit User</div>
+                {creditCardButton}
+                <div className="ui green button" onClick={this.props.addCarHandler}>Add Car</div>
+                <div className="ui hidden divider"></div>
+
+                <form id="user-edit-form" className="ui form" style={{ display: this.props.formOpenState === "editUserForm" ? "block" : "none"}} >
                     <div className="equal width fields">
                         <div className="field">
                             <label>Address</label>
@@ -69,9 +86,10 @@ export default React.createClass({
                         <textarea rows="2" ref="summary" name="summary" placeholder="Enter a summary about yourself"></textarea>
                     </div>
                     <button className="ui green button">Update</button>
+                    <div className="ui red button" onClick={this.props.hideUserEditHandler}>Close</div>
                     <div style={{ display: this.props.error ? "block" : "none"}} className="ui error message">{this.props.error}</div>
-                    <div style={{ display: this.props.success ? "block" : "none"}} className="ui success message">User updated successfully</div>
                 </form>
+                <div style={{ display: this.props.success ? "block" : "none"}} className="ui success message">User updated successfully</div>
             </div>
         );
     }

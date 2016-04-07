@@ -22,7 +22,7 @@ export default React.createClass({
             error: ""
         });
         const currentUser = getCurrentUser();
-        createCreditCard(currentUser.uid,
+        createCreditCard(
             this.refs.creditCardNumber.value.trim(),
             this.refs.cvv.value.trim(),
             this.state.expiryDate.format("MMYY"))
