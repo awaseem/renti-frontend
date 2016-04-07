@@ -32,7 +32,8 @@ let carRate = 0;
 function getCarPrice(startDate, endDate) {
     const lastDate = moment(endDate);
     const duration = moment.duration(lastDate.diff(startDate, "days"), "days");
-    const price = duration.asDays() * carRate;
+    console.log(duration);
+    const price = (duration.asDays() + 1) * carRate;
     if (price <= 0.0) {
         return "N/A";
     }
@@ -43,7 +44,7 @@ export default React.createClass({
     getInitialState: function () {
         return {
             startDate: moment(),
-            endDate: moment(),
+            endDate: moment().add(1, "days"),
             currentUser: "",
             price: 0,
             exclusionDates: [],
@@ -208,7 +209,7 @@ export default React.createClass({
                                 selected={this.state.endDate}
                                 startDate={this.state.startDate}
                                 endDate={this.state.endDate}
-                                minDate={moment(this.state.startDate).add(1, "days")}
+                                minDate={this.state.startDate}
                                 excludeDates={this.state.exclusionDates}
                                 onChange={this.handleChangeEnd} />
                         </div>
