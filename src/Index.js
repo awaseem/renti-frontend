@@ -17,6 +17,8 @@ import AddCar from "./components/AddCar/AddCar";
 import CreateTransaction from "./components/CreateTransaction/CreateTransaction";
 import UserAdmin from "./components/UserAdmin/UserAdmin";
 
+import "./styles/styles.css";
+
 window.React = React;
 
 render(
