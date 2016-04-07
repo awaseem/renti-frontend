@@ -3,6 +3,7 @@ import { checkAuth, getCurrentUser } from "../../lib/auth";
 import { getUserById, updateUser } from "../../lib/user";
 import { getTransactionsForUser, approveTransaction} from "../../lib/transaction";
 import UserEdit from "./UserEdit/UserEdit";
+import CarItem from "../CarList/CarItem";
 import TransactionEdit from "./TransactionEdit/TransactionEdit";
 
 export default React.createClass({
@@ -64,6 +65,10 @@ export default React.createClass({
         });
     },
 
+    carEditFormHandler: function () {
+
+    },
+
     transactionApprovalHandler: function (tid) {
         approveTransaction(tid);
         let userData = this.state.userData;
@@ -80,6 +85,8 @@ export default React.createClass({
     },
 
     render: function () {
+        const { cars } = this.state.userData;
+        console.log(cars);
         if (!checkAuth() || this.state.error === "noCurrentUser") {
             return (
                 <div>
@@ -87,12 +94,34 @@ export default React.createClass({
                 </div>
             );
         } else {
+            let carItems;
+            if (cars) {
+                carItems = cars.map((car) => {
+                    return <div key={car.license_plate} className="column"><CarItem colour={car.colour}
+                            id={car.license_plate}
+                            uid={car.user_id}
+                            image={car.image}
+                            make={car.make}
+                            model={car.model}
+                            year={car.year}
+                            numberOfSeats={car.number_of_seats}
+                            price={car.price}
+                            carData={car}
+                            onEdit={this.carEditFormHandler}
+                    /></div>;
+                });
+            }
             return (
                 <div>
                     <UserEdit success={this.state.userFormUpdated}
                         userData={this.state.userData}
                         error={this.state.formError}
                         handleFormSubmit={this.userFormHandler}/>
+                    <h2>Edit Cars</h2>
+                    <div className="ui divider"></div>
+                    <div className="ui three column grid">
+                        {carItems}
+                    </div>
                     <div className="ui divider"></div>
                     <TransactionEdit
                         userData={this.state.userData}

@@ -51,7 +51,7 @@ export default React.createClass({
 
     render: function () {
         let cars = this.state.cars.map((car) => {
-            return <CarItem key={Math.random()} colour={car.colour}
+            return <CarItem key={car.license_plate} colour={car.colour}
                             id={car.license_plate}
                             uid={car.user_id}
                             image={car.image}
@@ -66,7 +66,7 @@ export default React.createClass({
         });
         return (
             <div>
-                <div className="ui cards">
+                <div className="ui centered cards">
                     {cars}
                 </div>
                 <ErrorPopUp show={this.state.showPopUp} heading="Error" message="There seems to be an error!"/>
