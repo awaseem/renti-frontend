@@ -2,9 +2,9 @@ import React from "react";
 import CarItem from "./CarItem";
 import { getCars } from "../../lib/car";
 import { checkAuth, checkUserCreditCard } from "../../lib/auth";
-import ErrorPopUp from "../PopUp/PopUp";
 import { browserHistory } from "react-router";
 import fuse from "fuse.js";
+import sw from "sweetalert";
 
 export default React.createClass({
 
@@ -13,7 +13,6 @@ export default React.createClass({
         return {
             carsUnchanged: [],
             cars: [],
-            showPopUp: false,
             message: ""
         };
     },
@@ -34,10 +33,7 @@ export default React.createClass({
 
     rentHandler: function (carId) {
         if (!checkAuth()) {
-            return this.setState({
-                showPopUp: true,
-                message: "noAuth"
-            });
+            sw("Oops...", "You need to be logged in to rent cars!", "error");
         }
         else {
             checkUserCreditCard((valid) => {
@@ -45,10 +41,7 @@ export default React.createClass({
                     return browserHistory.push(`/rent/${carId}`);
                 }
                 else {
-                    return this.setState({
-                        showPopUp: true,
-                        message: "noAuth"
-                    });
+                    sw("Oops...", "You need a valid credit card!", "error");
                 }
             });
         }
@@ -100,7 +93,6 @@ export default React.createClass({
                 <div className="ui centered cards">
                     {cars}
                 </div>
-                <ErrorPopUp show={this.state.showPopUp} heading="Error" message="There seems to be an error!"/>
             </div>
         );
     }

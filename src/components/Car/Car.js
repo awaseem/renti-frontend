@@ -6,13 +6,12 @@ import { browserHistory } from "react-router";
 import { addCarComment } from "../../lib/feedback";
 import FeedbackItem from "../Feedback/FeedbackItem";
 import FeedbackForm from "../Feedback/FeedbackForm";
-import ErrorPopUp from "../PopUp/PopUp";
+import sw from "sweetalert";
 
 export default React.createClass({
 
     getInitialState: function () {
         return {
-            showPopUp: false,
             carData: {},
             carComments: [],
             error: false
@@ -35,10 +34,7 @@ export default React.createClass({
 
     rentHandler: function () {
         if (!checkAuth()) {
-            return this.setState({
-                showPopUp: true,
-                message: "You need to login in order to rent this car!"
-            });
+            sw("Oops...", "You need to be logged in to rent cars!", "error");
         }
         else {
             checkUserCreditCard((valid) => {
@@ -46,10 +42,7 @@ export default React.createClass({
                     return browserHistory.push(`/rent/${this.props.params.plate}`);
                 }
                 else {
-                    return this.setState({
-                        showPopUp: true,
-                        message: "You need a valid credit card in order to rent this car!"
-                    });
+                    sw("Oops...", "You need a valid credit card!", "error");
                 }
             });
         }
@@ -118,7 +111,6 @@ export default React.createClass({
                         </div>
                     </div>
                 </div>
-                <ErrorPopUp show={this.state.showPopUp} heading="Error" message="There seems to be an error!"/>
             </div>
         );
     }
