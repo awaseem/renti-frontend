@@ -66,25 +66,31 @@ export default React.createClass({
 
     render: function () {
         return (
-            <form id="create_credit_card-form" className="ui form">
-                <div className="field">
-                    <label>Credit Card Number</label>
-                    <input type="text" ref="creditCardNumber" name="creditCardNumber" placeholder="Enter Credit Card"></input>
+            <div className="ui centered grid">
+                <div className="column">
+                    <div className="ui segment">
+                        <form id="create_credit_card-form" className="ui form">
+                            <div className="field">
+                                <label>Credit Card Number</label>
+                                <input type="text" ref="creditCardNumber" name="creditCardNumber" placeholder="Enter Credit Card"></input>
+                            </div>
+                            <div className="field">
+                                <label>CVV</label>
+                                <input type="text" ref="cvv" name="cvv" placeholder="###"></input>
+                            </div>
+                            <div className="field">
+                                <label>Expiry Date</label>
+                                <DatePicker
+                                    selected={this.state.expiryDate}
+                                    showYearDropdown
+                                    onChange={this.handleExpiryDateChange} />
+                            </div>
+                            <button className="ui green button">Submit</button>
+                            <div style={{ display: this.state.error ? "block" : "none"}} className="ui error message">{this.state.error}</div>
+                        </form>
+                    </div>
                 </div>
-                <div className="field">
-                    <label>CVV</label>
-                    <input type="text" ref="cvv" name="cvv" placeholder="###"></input>
-                </div>
-                <div className="field">
-                    <label>Expiry Date</label>
-                    <DatePicker
-                        selected={this.state.expiryDate}
-                        showYearDropdown
-                        onChange={this.handleExpiryDateChange} />
-                </div>
-                <button className="ui green button">Submit</button>
-                <div style={{ display: this.state.error ? "block" : "none"}} className="ui error message">{this.state.error}</div>
-            </form>
+            </div>
         );
     }
 });

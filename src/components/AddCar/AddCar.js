@@ -68,54 +68,60 @@ export default React.createClass({
 
     render: function () {
         return (
-            <form id="add_car-form" className="ui form">
-                <div className="equal width fields">
-                    <div className="field">
-                        <label>Make</label>
-                        <input type="text" ref="make" name="make" placeholder="Car Make"></input>
-                    </div>
-                    <div className="field">
-                        <label>Model</label>
-                        <input type="text" ref="model" name="model" placeholder="Car Model"></input>
-                    </div>
-                    <div className="field">
-                        <label>Year</label>
-                        <input type="text" ref="year" name="year" placeholder="YYYY"></input>
-                    </div>
-                </div>
+            <div className="ui centered grid">
+                <div className="column">
+                    <div className="ui segment">
+                        <form id="add_car-form" className="ui form">
+                            <div className="equal width fields">
+                                <div className="field">
+                                    <label>Make</label>
+                                    <input type="text" ref="make" name="make" placeholder="Car Make"></input>
+                                </div>
+                                <div className="field">
+                                    <label>Model</label>
+                                    <input type="text" ref="model" name="model" placeholder="Car Model"></input>
+                                </div>
+                                <div className="field">
+                                    <label>Year</label>
+                                    <input type="text" ref="year" name="year" placeholder="YYYY"></input>
+                                </div>
+                            </div>
 
-                <div className="equal width fields">
-                    <div className="field">
-                        <label>Number of Seats</label>
-                        <input type="text" ref="numberOfSeats" name="numberOfSeats" placeholder="#"></input>
-                    </div>
-                    <div className="field">
-                        <label>Price per day</label>
-                        <input type="text" ref="price" name="price" placeholder="price"></input>
-                    </div>
-                    <div className="field">
-                        <label>Colour</label>
-                        <input type="text" ref="colour" name="colour" placeholder="Colour"></input>
-                    </div>
-                </div>
+                            <div className="equal width fields">
+                                <div className="field">
+                                    <label>Number of Seats</label>
+                                    <input type="text" ref="numberOfSeats" name="numberOfSeats" placeholder="#"></input>
+                                </div>
+                                <div className="field">
+                                    <label>Price per day</label>
+                                    <input type="text" ref="price" name="price" placeholder="price"></input>
+                                </div>
+                                <div className="field">
+                                    <label>Colour</label>
+                                    <input type="text" ref="colour" name="colour" placeholder="Colour"></input>
+                                </div>
+                            </div>
 
-                <div className="equal width fields">
-                    <div className="field">
-                        <label>License Plate</label>
-                        <input type="text" ref="licensePlate" name="licensePlate" placeholder="Plate"></input>
-                    </div>
-                    <div className="field">
-                        <label>Image URL</label>
-                        <input type="text" ref="image" name="image" placeholder="URL to image"></input>
+                            <div className="equal width fields">
+                                <div className="field">
+                                    <label>License Plate</label>
+                                    <input type="text" ref="licensePlate" name="licensePlate" placeholder="Plate"></input>
+                                </div>
+                                <div className="field">
+                                    <label>Image URL</label>
+                                    <input type="text" ref="image" name="image" placeholder="URL to image"></input>
+                                </div>
+                            </div>
+                            <div className="field">
+                                <label>Summary</label>
+                                <input type="text" ref="summary" name="summary" placeholder="Description about car"></input>
+                            </div>
+                            <button className="ui green button">Submit</button>
+                            <div style={{ display: this.state.error ? "block" : "none"}} className="ui error message">{this.state.error}</div>
+                        </form>
                     </div>
                 </div>
-                <div className="field">
-                    <label>Summary</label>
-                    <input type="text" ref="summary" name="summary" placeholder="Description about car"></input>
-                </div>
-                <button className="ui green button">Submit</button>
-                <div style={{ display: this.state.error ? "block" : "none"}} className="ui error message">{this.state.error}</div>
-            </form>
+            </div>
         );
     }
 });

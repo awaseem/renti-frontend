@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router";
 import CreateCreditCard from "../../CreateCreditCard/CreateCreditCard";
 import AddCar from "../../AddCar/AddCar";
 export default React.createClass({
@@ -48,11 +49,12 @@ export default React.createClass({
                         <div className="center aligned column">
                             <h1>{userData.first_name} {userData.last_name}</h1>
                             <img className="ui small centered circular image" src={userData.image}/>
-                            <h5>Username: {userData.username}</h5>
-                            <h5>Address: {userData.address}</h5>
+                            <h5>Username: <Link to={`/user/${userData.uid}`} className="header">{userData.username}</Link></h5>
                             <h5>Email: {userData.email}</h5>
+                            <h5>Address: {userData.address}</h5>
                         </div>
                     </div>
+                    <hr/>
                     <div className="row">
                         <div className="center aligned column">
                             <h2>Summary</h2>
