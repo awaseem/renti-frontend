@@ -9,6 +9,8 @@ export default React.createClass({
                 <Menu/>
                 <div className="ui hidden divider"></div>
                 <div className="ui hidden divider"></div>
+                <div className="ui hidden divider"></div>
+                <div className="ui hidden divider"></div>
                 <div className="ui container">
                     {this.props.children}
                 </div>
