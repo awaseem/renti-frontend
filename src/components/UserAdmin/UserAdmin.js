@@ -123,8 +123,6 @@ export default React.createClass({
     },
 
     render: function () {
-        console.log("transactions", this.state.userTransactions);
-        console.log("userdata", this.state.userData);
         const { cars } = this.state.userData;
         if (!checkAuth() || this.state.error === "noCurrentUser") {
             return (
