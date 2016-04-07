@@ -7,11 +7,12 @@ export default React.createClass({
         return (
             <div>
                 <Menu/>
+                <div className="ui hidden divider"></div>
+                <div className="ui hidden divider"></div>
                 <div className="ui container">
                     {this.props.children}
                 </div>
             </div>
         );
     }
-
 });

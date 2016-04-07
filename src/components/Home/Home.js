@@ -3,6 +3,15 @@ import { getCurrentUser, logout, checkAuth, checkUserCreditCard } from "../../li
 import { browserHistory } from "react-router";
 import CarList from "../CarList/CarList";
 
+const divStyle = {
+    color: "white",
+    backgroundImage: "url(" + "http://images.car.bauercdn.com/pagefiles/20934/ford_focus_rs_10.jpg" + ")",
+    backgroundSize: "cover",
+    paddingTop: "50%",
+    WebkitTransition: "all", // note the capital "W" here
+    msTransition: "all" // 'ms' is the only lowercase vendor prefix
+};
+
 export default React.createClass({
 
     onLogout: function () {
@@ -22,12 +31,15 @@ export default React.createClass({
             userInfo = <h3>No user logged in!</h3>;
         }
         return (
-            <div className="ui container">
-                <h1>Welcome to Renti!</h1>
-                <h2>Current User is: </h2>
-                {userInfo}
-                {/*you can also use checkAuth to see if anyone is logged in*/}
-                { checkAuth() ? <button onClick={this.onLogout} className="ui red button">Log out</button> : undefined }
+            <div>
+                <div style={divStyle} className="ui vertical padded center aligned segment">
+                    <div className="ui text container">
+                        <h2>Reimagine renting cars.</h2>
+                    </div>
+                </div>
+                <div className="ui hidden divider"></div>
+                <div className="ui hidden divider"></div>
+
                 <CarList/>
             </div>
         );

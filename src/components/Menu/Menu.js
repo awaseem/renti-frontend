@@ -11,13 +11,15 @@ export default React.createClass({
 
     render: function() {
         return (
-            <div className="ui stackable inverted menu">
+            <div className="ui inverted top fixed menu">
               <div className="ui container">
                 <Link to={"/"} className="item">
                     <img className="logo" src="http://i.imgur.com/pXlkRaH.png"/> { " Renti" }
                 </Link>
+                <div className="right menu">
                     { checkAuth() ? <Link to="/user/admin" className="item">{ getCurrentUser().first_name }</Link> : <Link to="/signup" className="item">Sign Up</Link> }
                     { checkAuth() ? <div className="item"><button onClick={this.onLogout} className="ui red button">Log out</button></div> : <div className="item"><Link to="/signin" className="ui blue button">Log In</Link></div> }
+                </div>
               </div>
             </div>
         );
