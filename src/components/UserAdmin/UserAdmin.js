@@ -2,6 +2,7 @@ import React from "react";
 import { checkAuth, getCurrentUser } from "../../lib/auth";
 import { getUserById, updateUser } from "../../lib/user";
 import { getTransactionsForUser, approveTransaction} from "../../lib/transaction";
+import { editCar } from "../../lib/car";
 import UserEdit from "./UserEdit/UserEdit";
 import CarItem from "../CarList/CarItem";
 import TransactionEdit from "./TransactionEdit/TransactionEdit";
@@ -27,7 +28,7 @@ export default React.createClass({
             });
         })
         .catch( (err) => {
-            console.log(err);
+            console.error(err);
             this.setState({
                 error: "noCurrentUser"
             });
@@ -40,7 +41,7 @@ export default React.createClass({
             });
         })
         .catch( (err) => {
-            console.log(err);
+            console.error(err);
             this.setState({
                 error: "noCurrentUser"
             });
@@ -65,8 +66,28 @@ export default React.createClass({
         });
     },
 
-    carEditFormHandler: function () {
-
+    carEditFormHandler: function (carId, refs) {
+        const inputValues = Object.keys(refs).map((value) => {
+            return refs[value].value.trim();
+        });
+        // spearc the values of the form to editCar
+        editCar(carId, ...inputValues)
+            .then((result) => {
+                // Iterate through the user data until a match is found with the edited car
+                let userData = this.state.userData;
+                userData.cars.forEach((car, index) => {
+                    if (car.license_plate === result.data.license_plate) {
+                        // update userData with updated results.
+                        Object.keys(result.data).map((key) => userData.cars[index][key] = result.data[key] );
+                    }
+                });
+                this.setState({
+                    userData: userData
+                });
+            })
+            .catch((err) => {
+                console.error(err);
+            });
     },
 
     transactionApprovalHandler: function (tid) {
@@ -86,7 +107,6 @@ export default React.createClass({
 
     render: function () {
         const { cars } = this.state.userData;
-        console.log(cars);
         if (!checkAuth() || this.state.error === "noCurrentUser") {
             return (
                 <div>
@@ -107,7 +127,7 @@ export default React.createClass({
                             numberOfSeats={car.number_of_seats}
                             price={car.price}
                             carData={car}
-                            onEdit={this.carEditFormHandler}
+                            handleEdit={this.carEditFormHandler}
                     /></div>;
                 });
             }
@@ -119,7 +139,7 @@ export default React.createClass({
                         handleFormSubmit={this.userFormHandler}/>
                     <h2>Edit Cars</h2>
                     <div className="ui divider"></div>
-                    <div className="ui three column grid">
+                    <div className="ui three column centered grid">
                         {carItems}
                     </div>
                     <div className="ui divider"></div>

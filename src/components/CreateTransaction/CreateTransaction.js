@@ -54,7 +54,6 @@ export default React.createClass({
 
     onSubmit: function (e) {
         e.preventDefault();
-        console.log("before call");
 
         if (checkDateValidity.bind(this)()) {
             this.setState({
@@ -70,9 +69,6 @@ export default React.createClass({
             this.state.endDate.unix(),
             this.props.params.plate,
             this.state.price)
-        .then( (data) =>
-            console.log(data)
-        )
         .then( () => {
             // redirect to user admin page after login
             browserHistory.push("/user/admin");

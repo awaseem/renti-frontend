@@ -11,7 +11,10 @@ export default React.createClass({
 
     onEdit: function (e) {
         e.preventDefault();
-        this.props.handleEdit(this.refs);
+        this.props.handleEdit(this.props.id, this.refs);
+        this.setState({
+            edit: !this.state.edit
+        });
     },
 
     onDelete: function () {
