@@ -13,10 +13,9 @@ export default React.createClass({
         return (
             <div className="ui stackable inverted menu">
               <div className="ui container">
-                <a href="#" className="header item">
-                  <img className="logo" src="http://i.imgur.com/pXlkRaH.png"/> { " Renti" }
-                </a>
-                <Link to={"/"} className="item">Home</Link>
+                <Link to={"/"} className="item">
+                    <img className="logo" src="http://i.imgur.com/pXlkRaH.png"/> { " Renti" }
+                </Link>
                     { checkAuth() ? <Link to="/user/admin" className="item">{ getCurrentUser().first_name }</Link> : <Link to="/signup" className="item">Sign Up</Link> }
                     { checkAuth() ? <div className="item"><button onClick={this.onLogout} className="ui red button">Log out</button></div> : <div className="item"><Link to="/signin" className="ui blue button">Log In</Link></div> }
               </div>
