@@ -219,9 +219,9 @@ export default React.createClass({
                                 <div className="ui hidden divider"></div>
                                 <div className="ui message">
                                     <div className="header">
-                                        No transactions!
+                                        No Cars!
                                     </div>
-                                    <p>You don't have any transactions. Rent a vehicle to see it here.</p>
+                                    <p>You don't have any cars. Why not add your own car :)</p>
                                 </div>
                                 <div className="ui hidden divider"></div>
                                 <div className="ui hidden divider"></div>
