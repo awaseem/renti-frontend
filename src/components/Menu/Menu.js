@@ -13,8 +13,8 @@ export default React.createClass({
         return (
             <div className="ui inverted top fixed menu">
               <div className="ui container">
-                <Link to={"/"} className="item">
-                    <img className="logo" src="http://i.imgur.com/JQDJbgZ.png"/>
+                <Link to={"/"} className="vertically fitted item">
+                    <img className="ui image" src="http://i.imgur.com/WdCilzI.png"/>
                 </Link>
                 <div className="right menu">
                     { checkAuth() ? <Link to="/user/admin" className="item">{ getCurrentUser().first_name }</Link> : <Link to="/signup" className="item">Sign Up</Link> }
