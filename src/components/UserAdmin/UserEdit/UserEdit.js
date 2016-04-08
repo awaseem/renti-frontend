@@ -43,38 +43,29 @@ export default React.createClass({
             <div className="ui green button" onClick={this.props.replaceCreditCardHandler}>Replace Credit Card</div>
             : <div className="ui green button" onClick={this.props.addCreditCardHandler}>Add Credit Card</div>;
         return (
-            <div>
-                <div className="ui grid">
-                    <div className="row">
-                        <div className="center aligned column">
-                            <h1>{userData.first_name} {userData.last_name}</h1>
-                            <img className="ui small centered circular image" src={userData.image}/>
-                            <h5>Username: <Link to={`/user/${userData.uid}`} className="header">{userData.username}</Link></h5>
-                            <h5>Email: {userData.email}</h5>
-                            <h5>Address: {userData.address}</h5>
-                        </div>
-                    </div>
-                    <hr/>
-                    <div className="row">
-                        <div className="center aligned column">
-                            <h2>Summary</h2>
-                            <p>{userData.summary}</p>
-                        </div>
-                    </div>
-                    <div className="centered row">
-                        <div className="ui divider"></div>
-                        <div className="ui green button" onClick={this.props.showEditUserHandler}>Edit User</div>
-                        {creditCardButton}
-                        <div className="ui green button" onClick={this.props.addCarHandler}>Add Car</div>
-                    </div>
+        <div className="six wide column">
+            <h1>Your Profile</h1>
+            <img className="ui small centered circular image" src={userData.image}/>
+            <div className="ui segments" style={{ display: this.props.formOpenState === "editUserForm" ? "none" : "block"}}>
+                <div className="ui left aligned segment">
+                    <h4 className="ui header">Information</h4>
+                    <p>Name: {userData.first_name} {userData.last_name}</p>
+                    <p>Username: <Link to={`/user/${userData.uid}`} className="header">{userData.username}</Link></p>
+                    <p>Email: {userData.email}</p>
+                    <p>Address: {userData.address}</p>
                 </div>
-                <div className="ui hidden divider"></div>
+                <div className="ui left aligned segment">
+                    <h4 className="ui header">Summary</h4>
+                    <p>{userData.summary}</p>
+                </div>
+            </div>
 
+            <div className="ui segment" style={{ display: this.props.formOpenState === "editUserForm" ? "block" : "none"}}>
                 <form id="user-edit-form" className="ui form" style={{ display: this.props.formOpenState === "editUserForm" ? "block" : "none"}} >
                     <div className="equal width fields">
                         <div className="field">
                             <label>Address</label>
-                            <input type="text" ref="address" name="address" defaultValue={userData.address} placeholder="Enter an address"></input>
+                            <input type="text" ref="address" name="address" placeholder="Enter an address"></input>
                         </div>
                         <div className="field">
                             <label>Email Address</label>
@@ -95,6 +86,11 @@ export default React.createClass({
                 </form>
                 <div style={{ display: this.props.success ? "block" : "none"}} className="ui success message">User updated successfully</div>
             </div>
+            
+            <div className="ui green button" onClick={this.props.showEditUserHandler}>Edit User</div>
+            {creditCardButton}
+            <div className="ui green button" onClick={this.props.addCarHandler}>Add Car</div>
+        </div>
         );
     }
 });

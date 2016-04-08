@@ -183,7 +183,7 @@ export default React.createClass({
             let carItems = [];
             if (cars) {
                 carItems = cars.map((car) => {
-                    return <div key={car.license_plate} className="column"><CarItem colour={car.colour}
+                    return <CarItem key={car.license_plate} colour={car.colour}
                             id={car.license_plate}
                             uid={car.user_id}
                             image={car.image}
@@ -195,45 +195,47 @@ export default React.createClass({
                             carData={car}
                             handleEdit={this.carEditFormHandler}
                             handleDelete={this.carDeleteHandler}
-                    /></div>;
+                    />;
                 });
             }
             return (
-                <div>
-                    <UserEdit success={this.state.userFormUpdated}
-                        userData={this.state.userData}
-                        error={this.state.formError}
-                        handleFormSubmit={this.userFormHandler}
-                        hasCreditCard={this.state.hasCreditCard}
-                        showEditUserHandler={this.showEditUserHandler}
-                        replaceCreditCardHandler={this.replaceCreditCardHandler}
-                        addCreditCardHandler={this.addCreditCardHandler}
-                        addCarHandler={this.addCarHandler}
-                        hideUserEditHandler={this.hideUserEditHandler}
-                        formOpenState={this.state.formOpenState}/>
-                    <h2>Edit Cars</h2>
-                    <div className="ui divider"></div>
-                    <div className="ui three column centered grid">
-                        {carItems.length !== 0 ? carItems :
-                            <div>
-                                <div className="ui hidden divider"></div>
-                                <div className="ui message">
-                                    <div className="header">
-                                        No Cars!
-                                    </div>
-                                    <p>You don't have any cars. Why not add your own car :)</p>
-                                </div>
-                                <div className="ui hidden divider"></div>
-                                <div className="ui hidden divider"></div>
+            <div className="ui stackable two column center aligned padded grid">
+                <UserEdit success={this.state.userFormUpdated}
+                 userData={this.state.userData}
+                 error={this.state.formError}
+                 handleFormSubmit={this.userFormHandler}
+                 hasCreditCard={this.state.hasCreditCard}
+                 showEditUserHandler={this.showEditUserHandler}
+                 replaceCreditCardHandler={this.replaceCreditCardHandler}
+                 addCreditCardHandler={this.addCreditCardHandler}
+                 addCarHandler={this.addCarHandler}
+                 hideUserEditHandler={this.hideUserEditHandler}
+                 formOpenState={this.state.formOpenState}/>
+                <div className="ten wide column">
+                    <h1>Your Vehicles</h1>
+                    {carItems.length !== 0 ? <div className="ui centered cards">
+                        {carItems} 
+                    </div>:
+                    <div>
+                        <div className="ui hidden divider"></div>
+                        <div className="ui message">
+                            <div className="header">
+                                No Cars!
                             </div>
-                        }
+                            <p>You don't have any cars. Why not add your own car :)</p>
+                        </div>
+                        <div className="ui hidden divider"></div>
+                        <div className="ui hidden divider"></div>
                     </div>
-                    <div className="ui divider"></div>
-                    <TransactionEdit
-                        userData={this.state.userData}
-                        userTransactions={this.state.userTransactions}
-                        transactionApprovalHandler={this.transactionApprovalHandler}/>
+                    }
                 </div>
+                <div className="sixteen wide column">
+                    <TransactionEdit
+                     userData={this.state.userData}
+                     userTransactions={this.state.userTransactions}
+                     transactionApprovalHandler={this.transactionApprovalHandler}/>
+                </div>
+            </div>
             );
         }
     }
