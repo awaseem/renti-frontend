@@ -77,39 +77,34 @@ export default React.createClass({
             });
         }
         return (
-            <div className="ui container">
-                <div className="ui grid">
-                    <div className="row">
-                        <div className="center aligned column">
-                            <h1>{carData.year} {carData.make} {carData.model}</h1>
-                            <img className="ui large rounded centered image" src={carData.image}/>
-                            <h5 className="ui grey header">price: ${carData.price}</h5>
-                            <h5 className="ui grey header">belongs to: <Link to={`/user/${carData.user_id}`}><span>{carData.users ? carData.users.username : undefined}</span></Link></h5>
-                            <h5 className="ui grey header">number of seats: {carData.number_of_seats}</h5>
-                            <h5 className="ui grey header">colour: {carData.colour}</h5>
-                            <button className="ui medium blue button" onClick={this.rentHandler}>Rent</button>
+            <div className="ui stackable two column center aligned padded grid">
+                <div className="row">
+                    <h1>{carData.year} {carData.make} {carData.model}</h1>
+                </div>
+                <div className="eight wide column">
+                    <img className="ui big rounded centered image" style={{borderBottomRightRadius: 0, borderBottomLeftRadius: 0}} src={carData.image}/>
+                    <button className="fluid ui blue bottom attached button" onClick={this.rentHandler}>Rent This Vehicle</button>
+                </div>
+                <div className="eight wide column">
+                    <div className="ui segments">
+                        <div className="ui left aligned segment">
+                            <h4 className="ui header">Information</h4>
+                            <p>Price: ${carData.price}</p>
+                            <p>Owner: <Link to={`/user/${carData.user_id}`}><span>{carData.users ? carData.users.username : undefined}</span></Link></p>
+                            <p>Seats: {carData.number_of_seats}</p>
+                            <p>Color: {carData.colour}</p>
                         </div>
-                    </div>
-                    <hr/>
-                    <div className="row">
-                        <div className="center aligned column">
-                            <h2>Summary</h2>
+                        <div className="ui left aligned segment">
+                            <h4 className="ui header">Summary</h4>
                             <p>{carData.summary}</p>
                         </div>
                     </div>
-                    <hr/>
-                    <div className="row">
-                        <div className="centered eight wide column">
-                            <div className="ui items">
-                                {carComments}
-                            </div>
-                        </div>
+                </div>
+                <div className="left aligned eight wide column">
+                    <div className="ui comments">
+                        {carComments}
                     </div>
-                    <div className="row">
-                        <div className="centered eight wide column">
-                            { checkAuth() ? <FeedbackForm handler={this.addComment}/> : undefined}
-                        </div>
-                    </div>
+                    { checkAuth() ? <FeedbackForm handler={this.addComment}/> : undefined}
                 </div>
             </div>
         );
