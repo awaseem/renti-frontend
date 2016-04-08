@@ -9,7 +9,7 @@ export default React.createClass({
                 <a className="avatar">
                     <img className="ui tiny image" src={this.props.image}/>
                 </a>
-                <div class="content">
+                <div className="content">
                     <a href={`/user/${this.props.uid}`} className="author">{this.props.username}</a>
                     <div className="text">
                         {this.props.comment}
