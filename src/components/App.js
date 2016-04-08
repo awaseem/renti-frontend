@@ -8,8 +8,8 @@ export default React.createClass({
         return (
             <div>
                 <Menu/>
-                { this.props.location.pathname == "/" ? undefined : <Header/> }
-                <div className="ui main container" style={{marginTop: "5em"}}>
+                <Header/>
+                <div className="ui main container">
                     {this.props.children}
                 </div>
             </div>
