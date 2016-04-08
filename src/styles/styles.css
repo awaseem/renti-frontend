@@ -1,0 +1,10 @@
+.site-header {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)), url("http://upload.wikimedia.org/wikipedia/commons/5/5d/Calgary_panorama-2.jpg");
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+.header-text {
+    font-size: 2em;
+    color: white;
+}
