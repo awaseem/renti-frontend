@@ -68,8 +68,9 @@ export default React.createClass({
 
     render: function () {
         return (
-            <div className="ui centered grid">
+            <div className="ui centered padded grid">
                 <div className="column">
+                    <h1 className="ui center aligned header">Add a new car</h1>
                     <div className="ui segment">
                         <form id="add_car-form" className="ui form">
                             <div className="equal width fields">
