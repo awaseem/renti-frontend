@@ -93,50 +93,34 @@ export default React.createClass({
             });
         }
         return (
-            <div className="ui container">
-                <div className="ui grid">
-                    <div className="row">
-                        <div className="center aligned column">
-                            <h1>{userData.first_name} {userData.last_name}</h1>
-                            <img className="ui small centered circular image" src={userData.image}/>
-                            <h5 className="ui grey header">username: {userData.username}</h5>
-                            <h5 className="ui grey header">email: {userData.email}</h5>
+                <div className="ui stackable two column center aligned padded grid">
+                    <div className="six wide column">
+                        <h1>{userData.first_name} {userData.last_name}</h1>
+                        <img className="ui small centered circular image" src={userData.image}/>
+                        <div className="ui segments">
+                            <div className="ui left aligned segment">
+                                <h4 className="ui header">Information</h4>
+                                <p>Username: {userData.username}</p>
+                                <p>Email: {userData.email}</p>
+                            </div>
+                            <div className="ui left aligned segment">
+                                <h4 className="ui header">Summary</h4>
+                                <p>{userData.summary}</p>
+                            </div>
                         </div>
                     </div>
-                    <hr/>
-                    <div className="row">
-                        <div className="center aligned column">
-                            <h2>Summary</h2>
-                            <p>{userData.summary}</p>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="center aligned column">
-                            <h2>Cars</h2>
-                        </div>
-                    </div>
-                    <div className="one column row">
-                        <div className="centered column">
+                    <div className="ten wide column">
                             <div className="ui centered cards">
                                 {userCars}
                             </div>
-                        </div>
                     </div>
-                    <hr/>
-                    <div className="row">
-                        <div className="centered eight wide column">
-                            <div className="ui items">
-                                {userComments}
-                            </div>
+                    <div className="left aligned eight wide column">
+                        <div className="ui comments">
+                            {userComments}
                         </div>
-                    </div>
-                    <div className="row">
-                        <div className="centered eight wide column">
-                            { checkAuth() ? <FeedbackForm handler={this.addComment}/> : undefined}
-                        </div>
+                        { checkAuth() ? <FeedbackForm handler={this.addComment}/> : undefined}
                     </div>
                 </div>
-            </div>
         );
     }
 
