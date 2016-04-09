@@ -8,3 +8,11 @@
     font-size: 2em;
     color: white;
 }
+
+.ui.main.container {
+    margin-top: 15px;
+}
+
+.ui.inverted.vertical.footer.segment {
+    margin-top: 25px;
+}
