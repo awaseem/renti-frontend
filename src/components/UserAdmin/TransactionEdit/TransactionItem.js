@@ -8,6 +8,10 @@ export default React.createClass({
         this.props.transactionApprovalHandler(this.props.tid);
     },
 
+    handleDeleteClick: function () {
+        this.props.transactionDeleteHandler(this.props.tid);
+    },
+
     render: function () {
         let transactionState = "";
         if (this.props.approved) {
@@ -47,6 +51,7 @@ export default React.createClass({
                     </div>
                     <div className="extra">
                         {transactionState}
+                        <button onClick={this.handleDeleteClick} className="ui basic red button">Cancel</button>
                     </div>
                 </div>
             </div>

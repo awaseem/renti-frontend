@@ -75,6 +75,7 @@ export default React.createClass({
                     dateOut={transaction.date_out}
                     price={transaction.price}
                     transactionApprovalHandler={this.props.transactionApprovalHandler}
+                    transactionDeleteHandler={this.props.transactionDeleteHandler}
                     />;
             });
         }

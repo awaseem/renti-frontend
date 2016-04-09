@@ -1,5 +1,5 @@
 import endpoints from "../config/endpoints";
-import { get, post } from "../util/request";
+import { get, post, remove } from "../util/request";
 import { getToken } from "./tokenStorage";
 
 export function createTransaction(userId, dateIn, dateOut, licensePlate, price) {
@@ -23,6 +23,13 @@ export function getTransactionsForUser(uid) {
 
 export function approveTransaction(tid) {
     return post(`${endpoints.transactions}approve`, {
+        token: getToken(),
+        tid: tid
+    });
+}
+
+export function deleteTransaction(tid) {
+    return remove(endpoints.transactions, {
         token: getToken(),
         tid: tid
     });

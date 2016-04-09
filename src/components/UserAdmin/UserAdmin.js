@@ -1,13 +1,14 @@
 import React from "react";
 import { checkAuth, getCurrentUser, checkUserCreditCard } from "../../lib/auth";
 import { getUserById, updateUser } from "../../lib/user";
-import { getTransactionsForUser, approveTransaction} from "../../lib/transaction";
+import { getTransactionsForUser, approveTransaction, deleteTransaction } from "../../lib/transaction";
 import { editCar, deleteCar } from "../../lib/car";
 import { createCreditCard, deleteCreditCard } from "../../lib/creditCard";
 import { browserHistory } from "react-router";
 import UserEdit from "./UserEdit/UserEdit";
 import CarItem from "../CarList/CarItem";
 import TransactionEdit from "./TransactionEdit/TransactionEdit";
+import sw from "sweetalert";
 
 export default React.createClass({
 
@@ -171,6 +172,18 @@ export default React.createClass({
         });
     },
 
+    transactionDeleteHandler: function (tid) {
+        return deleteTransaction(tid)
+            .then(() => {
+                this.setState({
+                    userTransactions: this.state.userTransactions.filter( transaction => transaction.tid !== tid)
+                });
+            })
+            .catch((err) => {
+                sw("Oops...", "Unknown error has occured", "error");
+            });
+    },
+
     render: function () {
         const { cars } = this.state.userData;
         if (!checkAuth() || this.state.error === "noCurrentUser") {
@@ -214,7 +227,7 @@ export default React.createClass({
                 <div className="ten wide column">
                     <h1>Your Vehicles</h1>
                     {carItems.length !== 0 ? <div className="ui centered cards">
-                        {carItems} 
+                        {carItems}
                     </div>:
                     <div>
                         <div className="ui hidden divider"></div>
@@ -233,7 +246,8 @@ export default React.createClass({
                     <TransactionEdit
                      userData={this.state.userData}
                      userTransactions={this.state.userTransactions}
-                     transactionApprovalHandler={this.transactionApprovalHandler}/>
+                     transactionApprovalHandler={this.transactionApprovalHandler}
+                     transactionDeleteHandler={this.transactionDeleteHandler}/>
                 </div>
             </div>
             );
