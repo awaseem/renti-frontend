@@ -70,7 +70,7 @@ export default React.createClass({
     render: function () {
         return (
             <div className="ui centered padded grid">
-                <div className="eight wide column">
+                <div className="twelve wide column">
                     <h1 className="ui center aligned header">Enter a new Credit Card</h1>
                     <div className="ui segment">
                         <form id="create_credit_card-form" className="ui form">

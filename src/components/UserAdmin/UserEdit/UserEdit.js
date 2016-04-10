@@ -40,8 +40,8 @@ export default React.createClass({
     render: function () {
         const userData = this.props.userData;
         const creditCardButton = this.props.hasCreditCard ?
-            <div className="ui green button" onClick={this.props.replaceCreditCardHandler}>Replace Credit Card</div>
-            : <div className="ui green button" onClick={this.props.addCreditCardHandler}>Add Credit Card</div>;
+            <div className="ui green button" onClick={this.props.replaceCreditCardHandler}>+ Credit Card</div>
+            : <div className="ui green button" onClick={this.props.addCreditCardHandler}>+ Credit Card</div>;
         return (
         <div className="six wide column">
             <h1>Your Profile</h1>
@@ -86,10 +86,9 @@ export default React.createClass({
                 </form>
                 <div style={{ display: this.props.success ? "block" : "none"}} className="ui success message">User updated successfully</div>
             </div>
-            
-            <div className="ui green button" onClick={this.props.showEditUserHandler}>Edit User</div>
+            <div className="ui green button" onClick={this.props.showEditUserHandler}>Edit</div>
             {creditCardButton}
-            <div className="ui green button" onClick={this.props.addCarHandler}>Add Car</div>
+            <div className="ui green button" onClick={this.props.addCarHandler}>+ Car</div>
         </div>
         );
     }

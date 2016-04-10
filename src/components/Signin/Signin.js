@@ -48,7 +48,7 @@ export default React.createClass({
     render: function () {
         return (
         <div className="ui centered padded grid">
-            <div className="eight wide column">
+            <div className="twelve wide column">
                 <h1 className="ui center aligned header">Sign into Renti</h1>
                 <div className="ui segment">
                     <form id="sign-in-form" className="ui form">
