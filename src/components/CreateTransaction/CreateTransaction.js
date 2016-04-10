@@ -41,6 +41,10 @@ function getCarPrice(startDate, endDate) {
 }
 
 export default React.createClass({
+    contextTypes: {
+        router: React.PropTypes.object.isRequired
+    },
+
     getInitialState: function () {
         return {
             startDate: moment(),
@@ -72,7 +76,7 @@ export default React.createClass({
             this.state.price)
         .then( () => {
             // redirect to user admin page after login
-            browserHistory.push("/user/admin");
+            this.context.router.push("user/admin");
         })
         .catch( (err) => {
             this.setState({

@@ -9,6 +9,9 @@ import FeedbackForm from "../Feedback/FeedbackForm";
 import sw from "sweetalert";
 
 export default React.createClass({
+    contextTypes: {
+        router: React.PropTypes.object.isRequired
+    },
 
     getInitialState: function () {
         return {
@@ -39,7 +42,7 @@ export default React.createClass({
         else {
             checkUserCreditCard((valid) => {
                 if (valid) {
-                    return browserHistory.push(`/rent/${this.props.params.plate}`);
+                    return this.context.router.push(`rent/${this.props.params.plate}`);
                 }
                 else {
                     sw("Oops...", "You need a valid credit card!", "error");

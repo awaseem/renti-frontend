@@ -8,6 +8,9 @@ import moment from "moment";
 require("react-datepicker/dist/react-datepicker.css");
 
 export default React.createClass({
+    contextTypes: {
+        router: React.PropTypes.object.isRequired
+    },
 
     getInitialState: function () {
         return {
@@ -39,7 +42,7 @@ export default React.createClass({
         .then( (res) => {
             setToken(res.token);
             // redirect to home page after login
-            browserHistory.push("/");
+            this.context.router.push("/");
         })
         .catch( (err) => {
             return err.response.json().then( (value) => value ? this.setState({

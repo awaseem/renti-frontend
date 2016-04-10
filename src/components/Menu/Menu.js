@@ -3,10 +3,13 @@ import { getCurrentUser, logout, checkAuth } from "../../lib/auth";
 import { Link, browserHistory } from "react-router";
 
 export default React.createClass({
+    contextTypes: {
+        router: React.PropTypes.object.isRequired
+    },
 
     onLogout: function () {
         logout();
-        browserHistory.push("/signin");
+        this.context.router.push("signin/");
     },
 
     render: function() {

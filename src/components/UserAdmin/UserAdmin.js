@@ -11,6 +11,9 @@ import TransactionEdit from "./TransactionEdit/TransactionEdit";
 import sw from "sweetalert";
 
 export default React.createClass({
+    contextTypes: {
+        router: React.PropTypes.object.isRequired
+    },
 
     getInitialState: function () {
         return {
@@ -94,7 +97,7 @@ export default React.createClass({
     replaceCreditCardHandler: function() {
         deleteCreditCard()
         .then(() => {
-            browserHistory.push("/CreateCreditCard");
+            this.context.router.push("CreateCreditCard");
         })
         .catch( (err) => {
             console.error(err);
@@ -102,11 +105,11 @@ export default React.createClass({
     },
 
     addCreditCardHandler: function() {
-        browserHistory.push("/CreateCreditCard");
+        this.context.router.push("CreateCreditCard");
     },
 
     addCarHandler: function() {
-        browserHistory.push("/newCar");
+        this.context.router.push("newCar");
     },
 
     hideUserEditHandler: function() {

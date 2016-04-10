@@ -4,10 +4,13 @@ import { browserHistory } from "react-router";
 import CarList from "../CarList/CarList";
 
 export default React.createClass({
+    contextTypes: {
+        router: React.PropTypes.object.isRequired
+    },
 
     onLogout: function () {
         logout();
-        browserHistory.push("/signin");
+        this.context.router.push("signin/");
     },
 
     render: function () {

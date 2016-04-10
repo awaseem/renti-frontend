@@ -4,6 +4,9 @@ import { getCurrentUser } from "../../lib/auth";
 import { browserHistory } from "react-router";
 
 export default React.createClass({
+    contextTypes: {
+        router: React.PropTypes.object.isRequired
+    },
 
     getInitialState: function () {
         return {
@@ -32,7 +35,7 @@ export default React.createClass({
         )
         .then( () => {
             // redirect to user admin page after login
-            browserHistory.push("/user/admin");
+            this.context.router.push("user/admin");
         })
         .catch( (err) => {
             this.setState({

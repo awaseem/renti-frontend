@@ -7,6 +7,9 @@ import fuse from "fuse.js";
 import sw from "sweetalert";
 
 export default React.createClass({
+    contextTypes: {
+        router: React.PropTypes.object.isRequired
+    },
 
     getInitialState: function () {
         this.indexedCars = undefined;
@@ -38,7 +41,7 @@ export default React.createClass({
         else {
             checkUserCreditCard((valid) => {
                 if (valid) {
-                    return browserHistory.push(`/rent/${carId}`);
+                    this.context.router.push(`rent/${carId}`);
                 }
                 else {
                     sw("Oops...", "You need a valid credit card!", "error");
