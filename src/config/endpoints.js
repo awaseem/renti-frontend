@@ -1,4 +1,4 @@
-const baseURL = "http://localhost:8080";
+const baseURL = "http://renti.tech:8080";
 
 export default {
 

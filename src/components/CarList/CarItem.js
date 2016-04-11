@@ -23,7 +23,7 @@ export default React.createClass({
     },
 
     componentDidMount: function () {
-        $("#" + this.props.id)
+        $("#" + this.props.id.replace(/ /g,""))
             .form({
                 on: "blur",
                 fields: {
@@ -50,7 +50,7 @@ export default React.createClass({
         }
         if (this.props.carData) {
             interactionType =
-            <form className="ui form" style={{ display: this.state.edit ? "block" : "none"}}  id={this.props.id}>
+            <form className="ui form" style={{ display: this.state.edit ? "block" : "none"}}  id={this.props.id.replace(/ /g,"")}>
                 <div className="equal width fields">
                 </div>
                 <div className="field">
