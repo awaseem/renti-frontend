@@ -50,7 +50,7 @@ export default React.createClass({
         }
         if (this.props.carData) {
             interactionType =
-            <form className="ui form" style={{ display: this.state.edit ? "block" : "none"}}  id={this.props.id.replace(/ /g,"")}>
+            <form className="ui form" style={{ display: this.state.edit ? "block" : "none", paddingLeft: "10px", paddingRight: "10px"}}  id={this.props.id.replace(/ /g,"")}>
                 <div className="equal width fields">
                 </div>
                 <div className="field">
@@ -85,9 +85,11 @@ export default React.createClass({
                     <label>Summary</label>
                     <input type="text" ref="summary" defaultValue={this.props.carData.summary} name="summary"/>
                 </div>
-                <input className="ui green button" type="submit" name="edit"/>
-                <button className="ui blue button" onClick={ (e) => { e.preventDefault(); this.setState({ edit: !this.state.edit}); } }>Done</button>
-                <button className="ui red button" onClick={this.onDelete}>Delete</button>
+                <div className="ui buttons" style={ { paddingBottom: "10px"}}>
+                    <input className="ui green button" type="submit" name="edit"/>
+                    <button className="ui blue button" onClick={ (e) => { e.preventDefault(); this.setState({ edit: !this.state.edit}); } }>Done</button>
+                    <button className="ui red button" onClick={this.onDelete}>Delete</button>
+                </div>
             </form>;
         }
         if (!this.state.edit && this.props.carData) {

@@ -51,7 +51,7 @@ export default React.createClass({
                     </div>
                     <div className="extra">
                         {transactionState}
-                        <button onClick={this.handleDeleteClick} className="ui basic red button">Cancel</button>
+                        { this.props.userCanApprove ? undefined : <button onClick={this.handleDeleteClick} className="ui basic red button">Cancel</button>}
                     </div>
                 </div>
             </div>
