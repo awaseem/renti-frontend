@@ -5,7 +5,7 @@
   "main": "server.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/awaseem/blog.aliwaseem.com"
+    "url": "https://github.com/awaseem/renti-backend.git"
   },
   "keywords": [
     "react",

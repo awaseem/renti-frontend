@@ -10,6 +10,15 @@ npm install
 npm run watch
 ```
 
+## Config
+
+You can also change the backend that the web application or the mobile app is interfacing with. Simply change the following line within `src/config/endpoints.js`:
+
+```
+const baseURL = "<BASE URL OF THE BACKEND (for example: http://localhost:8080)>";
+
+```
+
 ## Rules to contributing
 
 - Use an eslint plugin for your text editor! It's there to help you fix simple mistakes and follow the syntax guidelines setup by the project
