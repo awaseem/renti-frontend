@@ -2,12 +2,22 @@
 
 ## Setup
 
-To setup just run the following commands, ensure that a renti-backend instance is running somewhere within your machine (the front-end need data to access via endpoints from the backend!). Please ensure that you have Node.js and NPM installed. Node version should be at least 4.2.2 and NPM version should be at least 2.0.0.
+To setup just run the following commands, ensure that a renti-backend instance is running somewhere within your machine (the front-end need data to access via endpoints from the backend!). Please ensure that you have Node.js and NPM installed. **Node version should be at least 4.2.2 and NPM version should be at least 3.0.0.**
 
 ```
 npm install
+```
 
+For development launch the development server with the following command and view the app on localhost:3000.
+```
 npm run watch
+```
+
+For production setups use the following commands to build and run the web app:
+```
+npm run deploy
+
+npm start
 ```
 
 ## Config
