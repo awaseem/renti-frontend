@@ -12,6 +12,8 @@ npm run watch
 
 ## Create Android APK
 
+Before you generate the APK, you need to ensure that all proper android SDKs are installed and PATH includes a valid path to the SDKs. 
+
 To generate APK files simply run the following command `npm run android`, this will create a new APK within the following folder: `rentiAndroidBase/android/build/outputs/apk/android-debug.apk`
 
 ## Rules to contributing
