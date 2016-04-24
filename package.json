@@ -23,7 +23,8 @@
   "scripts": {
     "watch": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --history-api-fallback --port 3000",
     "deploy": "NODE_ENV=production ./node_modules/webpack/bin/webpack.js -p --config webpack.config.production.js",
-    "lint": "eslint -c ./.eslintrc.json src/"
+    "lint": "eslint -c ./.eslintrc.json src/",
+    "android": "npm run deploy; cp build/bundle.js rentiAndroidBase/www/js; cd rentiAndroidBase; rm -r platforms; phonegap build android;"
   },
   "author": "Ali Waseem",
   "license": "MIT",
