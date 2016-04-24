@@ -1,5 +1,7 @@
 # Renti-Frontend
 
+**NOTE: Developed for Mac OSX and Ubuntu, Windows platforms will either not work or not perform as expected**
+
 ## Setup
 
 To setup just run the following commands, ensure that a renti-backend instance is running somewhere within your machine (the front-end need data to access via endpoints from the backend!). Please ensure that you have Node.js and NPM installed. **Node version should be at least 4.2.2 and NPM version should be at least 3.3.12.**
